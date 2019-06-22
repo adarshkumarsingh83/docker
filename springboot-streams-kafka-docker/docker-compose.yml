@@ -1,0 +1,55 @@
+version: "3.1"
+
+services:
+  zookeeper:
+    image: wurstmeister/zookeeper:latest
+    container_name: zookeeper
+    ports:
+      - 2181:2181
+  kafka:
+    image: wurstmeister/kafka:latest
+    container_name: kafka
+    ports:
+      - 9092:9092
+    links:
+      - zookeeper
+    environment:
+      - KAFKA_ADVERTISED_HOST_NAME=kafka
+      - KAFKA_ADVERTISED_PORT=9092
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
+      - KAFKA_CREATE_TOPICS=espark:1:1
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    depends_on:
+      - zookeeper
+  espark-mysql:
+      image: mysql:5.7
+      container_name: espark-mysql
+      environment:
+        - MYSQL_ROOT_PASSWORD=root
+        - MYSQL_DATABASE=espark
+        - MYSQL_USER=root
+        - MYSQL_PASSWORD=root
+      ports:
+        - 3306:3306
+      depends_on:
+        - zookeeper
+        - kafka
+  springboot-streams-kafka-docker:
+    image: springboot-streams-kafka-docker
+    ports:
+      - 8080:8080
+    links:
+      - zookeeper
+      - kafka
+      - espark-mysql
+    depends_on:
+      - zookeeper
+      - kafka
+      - espark-mysql
+    environment:
+      - DATABASE_HOST=espark-mysql
+      - DATABASE_USER=root
+      - DATABASE_PASSWORD=root
+      - DATABASE_NAME=espark
+      - DATABASE_PORT=3306

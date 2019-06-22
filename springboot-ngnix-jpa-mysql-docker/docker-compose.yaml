@@ -1,0 +1,49 @@
+version: "3.2"
+services:
+  espark-mysql:
+    image: mysql:5.7
+    container_name: espark-mysql
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=espark
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=root
+    ports:
+      - 3306:3306
+  nginx:
+    container_name: nginx
+    build: ./nginx
+    restart: always
+    ports:
+     - 80:80
+     - 443:443
+    links:
+      - espark-mysql
+    depends_on:
+      - espark-mysql
+    volumes:
+      - ./nginx/conf.d:/usr/share/nginx/conf.d
+    environment:
+      - NGINX_HOST=localhost
+      - NGINX_PORT=80
+
+  springboot-ngnix-mysql-docker:
+    image: springboot-ngnix-mysql-docker
+    ports:
+      - 9090:9090
+    links:
+      - espark-mysql
+      - nginx
+    depends_on:
+      - espark-mysql
+      - nginx
+    command: mvn clean spring-boot:run
+    environment:
+      - DATABASE_HOST=espark-mysql
+      - DATABASE_USER=root
+      - DATABASE_PASSWORD=root
+      - DATABASE_NAME=espark
+      - DATABASE_PORT=3306
+
+

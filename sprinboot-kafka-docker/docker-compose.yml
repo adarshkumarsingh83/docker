@@ -1,0 +1,52 @@
+version: "3.1"
+
+services:
+  zookeeper:
+    image: wurstmeister/zookeeper
+    container_name: zookeeper
+    restart: always
+    ports:
+      - 2181:2181
+  kafka:
+    image: wurstmeister/kafka
+    container_name: kafka
+    restart: always
+    ports:
+      - 9092:9092
+    depends_on:
+      - zookeeper
+    links:
+      - zookeeper
+    environment:
+      - KAFKA_ADVERTISED_HOST_NAME=kafka
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
+
+  mongodb:
+    image: mongo:3.2.4
+    container_name: mongo
+    ports:
+      - 27017:27017
+    volumes:
+      - $HOME/data/springboot-mongo-data:/data/db
+      - $HOME/data/springboot-mongo-bkp:/data/bkp
+    restart: always
+
+  mongo-init:
+    build: ./data-import
+    links:
+      - mongodb
+
+  sprinboot-kafka-docker:
+    image: sprinboot-kafka-docker
+    environment:
+      - MONGOCLIENT_DEFAULT_CONNECTION_URL=mongodb://mongo:27017/espark
+    ports:
+      - 8080:8080
+    links:
+      - zookeeper
+      - kafka
+      - mongodb
+    depends_on:
+      - zookeeper
+      - kafka
+      - mongodb

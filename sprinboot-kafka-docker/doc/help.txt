@@ -1,0 +1,20 @@
+$ mvn clean package
+
+$ docker build . -t sprinboot-kafka-docker
+
+$ docker-compose up
+
+
+#to view the dockers process
+$ docker ps -a
+
+# to stop forcefully mongo
+$ docker rm --force
+
+post
+http://localhost:8080/message
+{
+   "messageId":"100"
+   ,"definition":"notification"
+   ,"data":"welcome to espark"
+}

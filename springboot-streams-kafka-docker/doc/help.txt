@@ -1,0 +1,49 @@
+https://docs.spring.io/autorepo/docs/spring-cloud-stream-docs/Chelsea.SR2/reference/htmlsingle/#_kafka_consumer_properties
+
+$ mvn clean package
+
+$ docker build . -t springboot-streams-kafka-docker
+
+$ docker-compose up
+$ docker-compose stop
+
+$ docker images
+
+#to view the dockers process
+$ docker ps -a
+
+# to stop forcefully
+$ docker rm --force <name>
+
+
+#to delete docker image
+$ docker image rm --force springboot-streams-kafka-docker
+
+@post
+http://localhost:8080/message
+{
+  "id":1
+  ,"name":"adarsh kumar"
+  ,"message":"love u radha"
+}
+
+{
+  "id":2
+  ,"name":"radha singh"
+  ,"message":"love u adi"
+}
+
+@get
+http://localhost:8080/message/1
+
+# to delete all container and iamges
+$ vi run.sh
+------------------------------------
+#!/bin/bash
+# Delete all containers
+docker rm $(docker ps -a -q)
+# Delete all images
+docker rmi $(docker images -q)
+------------------------------------
+$ sudo chmod 777 run.sh
+$ sh run.sh

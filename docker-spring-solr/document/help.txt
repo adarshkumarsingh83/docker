@@ -1,0 +1,36 @@
+$ mvn clean package
+
+$ docker-compose up
+
+# create a config
+$ curl -X POST \
+     -H "Content-Type: application/json" \
+     'http://localhost:8983/solr/admin/configs?action=CREATE&name=myconfig&baseConfigSet=_default'
+
+# create a collection
+$ curl -X POST \
+     -H "Content-Type: application/json" \
+     'http://localhost:8983/solr/admin/collections?action=CREATE&name=product&numShards=2&replicationFactor=2&maxShardsPerNode=2&collection.configName=myconfig'
+
+# directly from Solr creation
+$ curl http://localhost:8983/solr/product/update?commit=true -d "[ {\"id\" : \"1\",  \"name\" : \"Smartphone\" }]"
+
+# directly from Solr getting based on id
+$ curl 'http://localhost:8983/solr/product/get?id=1'
+
+# directly from Solr getting all data
+$ curl 'http://localhost:8983/solr/product/select?q=*:*'
+
+# Run the solrj client application
+com.espark.adarsh.client.SolrJClientApplication
+
+# Solr url to access the core
+http://localhost:8983/solr/#/
+
+# Star the Application Main to to the Rest end point
+com.epsark.adarsh.ApplicationMain
+
+#To Create Product on the solr using rest end point
+$ curl -X POST -H "Content-Type: application/json" -d '{"id":"2", "name":"iMac"}' http://localhost:8080/products
+
+$ docker-compose down && docker volume rm hellosolr_solrdata1 hellosolr_solrdata2

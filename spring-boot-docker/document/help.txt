@@ -1,0 +1,13 @@
+#to check the docker version
+spring-boot-docker $ docker -v
+
+#to build the docker image from Dockerfile and create docker image with name in -t
+spring-boot-docker $ docker build -f Dockerfile -t docker-springboot-image .
+
+#to know the list of created docker images
+spring-boot-docker $ docker images
+
+#to run the docker image in the machine
+spring-boot-docker $ docker run -p 9090:9090 docker-springboot-image
+
+#hit the url for getting the response of the service

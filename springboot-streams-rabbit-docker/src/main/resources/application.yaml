@@ -1,0 +1,31 @@
+
+spring:
+  cloud:
+    stream:
+      binder:
+        rabbit1:
+          type: rabbit
+          environment:
+            spring:
+              rabbitmq:
+                host: localhost
+                port: 5672
+                username: guest
+                password: guest
+      bindings:
+        message-in:
+          contentType: application/json
+          destination: espark
+          group: espark
+          consumer:
+            durableSubscription: true
+            concurrency: 20
+            headerMode: raw
+        message-out:
+          contentType: application/json
+          destination: espark
+          group: espark
+          consumer:
+            durableSubscription: true
+            concurrency: 20
+            headerMode: raw

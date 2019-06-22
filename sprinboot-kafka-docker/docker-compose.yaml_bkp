@@ -1,0 +1,64 @@
+version: '3.1'
+
+services:
+
+  zookeeper:
+    image: wurstmeister/zookeeper
+    container_name: zookeeper
+    restart: always
+    ports:
+      - 2181:2181
+
+  kafka:
+    image: wurstmeister/kafka
+    container_name: kafka
+    restart: always
+    ports:
+      - 9092:9092
+    depends_on:
+      - zookeeper
+    links:
+      - zookeeper:zookeeper
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: kafka
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+
+  consumer:
+    image: consumer
+    container_name: consumer
+    depends_on:
+      - kafka
+    restart: always
+    ports:
+      - 8084:8080
+    depends_on:
+      - kafka
+    links:
+      - kafka:kafka
+
+  producer:
+    image: producer
+    container_name: producer
+    depends_on:
+      - kafka
+    restart: always
+    ports:
+      - 8085:8080
+    depends_on:
+      - kafka
+    links:
+      - kafka:kafka
+
+
+
+------------------------------------------------------
+application.properties in Consumer:
+------------------------------------------------------
+spring.kafka.consumer.bootstrap-servers=kafka:9092
+spring.kafka.consumer.group-messageId=grop_name
+spring.kafka.consumer.topic=kafka_topic
+
+------------------------------------------------------
+application.properties in Producer:
+------------------------------------------------------
+spring.kafka.producer.bootstrap-servers=kafka:9092

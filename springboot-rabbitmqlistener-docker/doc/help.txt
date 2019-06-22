@@ -1,0 +1,25 @@
+rabbitmq mgmt console
+http://localhost:15672/
+guest/guest
+
+
+#to find the pid on the port
+$ sudo lsof -i :<port no>
+$ sudo kill -9 <pid>
+
+
+$ mvn clean package
+$ docker build . -t springboot-rabbitmqlistener-docker
+$ docker-compose up
+
+Post
+http://localhost:8080/message
+{
+      "messageId":"2"
+	,"sender":"adarsh kumar"
+	,"data":"love u radha"
+}
+
+
+GET
+http://localhost:8080/message/2

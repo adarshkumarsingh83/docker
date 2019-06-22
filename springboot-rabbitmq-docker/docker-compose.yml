@@ -1,0 +1,25 @@
+version: "3.1"
+
+services:
+  mongodb:
+    image: mongo:latest
+    ports:
+      - 27017:27017
+  rabbitmq:
+    image: rabbitmq:3.5.3-management
+    ports:
+      - 5672:5672
+      - 15672:15672
+  springboot-rabbitmq-docker:
+    image: springboot-rabbitmq-docker
+    environment:
+      - SPRING_RABBITMQ_ADDRESSES=amqp://guest:guest@rabbitmq:5672
+    depends_on:
+      - rabbitmq
+      - mongodb
+    links:
+      - rabbitmq
+      - mongodb
+    ports:
+      - 8080:8080
+

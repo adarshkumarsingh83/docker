@@ -1,0 +1,38 @@
+version: "3.1"
+
+services:
+  mongodb:
+    image: mongo:3.2.4
+    container_name: mongo
+    ports:
+      - 27017:27017
+    volumes:
+      - $HOME/data/springboot-mongo-data:/data/db
+      - $HOME/data/springboot-mongo-bkp:/data/bkp
+    restart: always
+
+  mongo-init:
+    build: ./data-import
+    links:
+      - mongodb
+
+  rabbitmq:
+    image: rabbitmq:3.5.3-management
+    ports:
+      - 5672:5672
+      - 15672:15672
+
+  springboot-rabbitmqlistener-docker:
+    image: springboot-rabbitmqlistener-docker
+    environment:
+      - SPRING_RABBITMQ_ADDRESSES=amqp://guest:guest@rabbitmq:5672
+      - MONGOCLIENT_DEFAULT_CONNECTION_URL=mongodb://mongo:27017/espark
+    depends_on:
+      - rabbitmq
+      - mongodb
+    links:
+      - rabbitmq
+      - mongodb
+    ports:
+      - 8080:8080
+

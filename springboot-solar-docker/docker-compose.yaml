@@ -1,0 +1,22 @@
+version: "3.2"
+services:
+  espark-solr:
+    image: solr
+    container_name: espark-solr
+    ports:
+     - "8983:8983"
+    restart: always
+    entrypoint:
+      - docker-entrypoint.sh
+      - solr-precreate
+      - employee
+
+  springboot-solar-docker:
+    image: springboot-solar-docker
+    restart: always
+    ports:
+      - 9090:9090
+    links:
+      - espark-solr
+    depends_on:
+      - espark-solr

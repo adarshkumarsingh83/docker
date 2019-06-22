@@ -1,0 +1,28 @@
+
+spring:
+  cloud:
+    stream:
+      kafka:
+        binder:
+          brokers: kafka
+          zkNodes: zookeeper
+          minPartitionCount: 1
+          replicationFactor: 1
+          autoCreateTopics: true
+      bindings:
+        message-in:
+          contentType: application/json
+          destination: espark
+          group: espark
+          consumer:
+            durableSubscription: true
+            concurrency: 20
+            headerMode: raw
+        message-out:
+          contentType: application/json
+          destination: espark
+          group: espark
+          consumer:
+            durableSubscription: true
+            concurrency: 20
+            headerMode: raw

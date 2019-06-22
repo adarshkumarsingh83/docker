@@ -1,0 +1,39 @@
+version: "3.1"
+
+services:
+  rabbitmq:
+      image: rabbitmq:3.5.3-management
+      ports:
+        - 5672:5672
+        - 15672:15672
+
+  espark-mysql:
+      image: mysql:5.7
+      container_name: espark-mysql
+      environment:
+        - MYSQL_ROOT_PASSWORD=root
+        - MYSQL_DATABASE=espark
+        - MYSQL_USER=root
+        - MYSQL_PASSWORD=root
+      ports:
+        - 3306:3306
+      depends_on:
+        - rabbitmq
+  springboot-streams-rabbit-docker:
+    image: springboot-streams-rabbit-docker
+    environment:
+          - SPRING_RABBITMQ_ADDRESSES=amqp://guest:guest@rabbitmq:5672
+    ports:
+      - 9090:9090
+    links:
+      - rabbitmq
+      - espark-mysql
+    depends_on:
+      - rabbitmq
+      - espark-mysql
+    environment:
+      - DATABASE_HOST=espark-mysql
+      - DATABASE_USER=root
+      - DATABASE_PASSWORD=root
+      - DATABASE_NAME=espark
+      - DATABASE_PORT=3306

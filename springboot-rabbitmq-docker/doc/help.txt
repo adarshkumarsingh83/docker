@@ -1,0 +1,19 @@
+rabbitmq mgmt console
+http://localhost:15672/
+guest/guest
+
+$ mvn clean package
+$ docker build . -t springboot-rabbitmq-docker
+$ docker-compose up
+
+Post
+http://localhost:8080/message
+{
+    "messageId":"1"
+	,"sender":"adarsh kumar"
+	,"data":"love u radha"
+}
+
+
+GET
+http://localhost:8080/message

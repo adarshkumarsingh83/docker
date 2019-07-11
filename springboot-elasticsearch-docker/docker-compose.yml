@@ -14,7 +14,7 @@ services:
       - esdata:/usr/share/elasticsearch/data
     environment:
       - discovery.type=single-node
-      - cluster.name=es-cluster
+      - cluster.name=docker-cluster
       - bootstrap.memory_lock=true
       - "xpack.security.enabled=false"
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"

@@ -34,7 +34,6 @@ public class PersonController {
         return this.personService.deletePerson(personId);
     }
 
-
     @GetMapping("/person/{personId}")
     public Person getPerson(@PathVariable("personId") Long personId) {
         return this.personService.findPerson(personId);

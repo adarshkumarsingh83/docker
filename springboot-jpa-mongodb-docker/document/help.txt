@@ -1,0 +1,31 @@
+#to find the pid on the port
+$ sudo lsof -i :<port no>
+$ sudo kill -9 <pid>
+
+$ mvn clean package
+
+#To build the docker image
+$ docker-compose up
+
+#To test the api
+$ curl -d '{"id":"1","name":"adarsh","email":"adarsh@kumar"}' -H "Content-Type: application/json" -X POST http://localhost:8080/api/employee
+
+$ curl -d '{"id":"2","name":"radha","email":"radha@singh"}' -H "Content-Type: application/json" -X POST http://localhost:8080/api/employee
+
+#To get data
+$ curl http://localhost:8080/api/employee
+
+#To update data
+$ curl -d '{"id": 1,"name": "adarsh","email": "adarsh@kumar.singh"}'  -H "Content-Type: application/json" -X PUT http://localhost:8080/api/employee/1
+
+#To Delete data
+$ curl -X DELETE http://localhost:8080/api/employee/1
+
+#To stop the docker
+$ docker-compose down
+
+#to list the docker process
+$ docker ps
+
+#to kill process
+$ docker stop <process id>

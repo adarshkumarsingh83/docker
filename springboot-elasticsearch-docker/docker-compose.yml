@@ -64,3 +64,4 @@ volumes:
 
 networks:
   esnet:
+    driver: bridge

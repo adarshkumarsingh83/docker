@@ -31,8 +31,6 @@
 			<version>3.1.9.RELEASE</version>
 		</dependency>
 
-		<!--org.springframework.data:spring-data-elasticsearch:3.0.3.RELEASE-->
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -46,6 +44,7 @@
 	</dependencies>
 
 	<build>
+		<finalName>springboot-elasticsearch-docker</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>

@@ -1,12 +1,14 @@
 
-
+#To Build the tag and run the docker
 $ docker-compose up
 
 #To Vew the health of the nodes
 $ curl http://localhost:9200/_cluster/health?pretty
 
+#To build the application code
 $ mvn clean package
 
+#To execute the application
 $ java -jar target/springboot-elasticsearch-docker.jar
 
 

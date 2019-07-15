@@ -46,15 +46,19 @@ services:
       - esnet
     depends_on:
       - elasticsearch
-
+      - elasticsearch2
 
 #  springboot-elasticsearch-docker:
 #    build: .
-#    container_name: sspringboot-elasticsearch-docker
+#    container_name: springboot-elasticsearch-docker
+#    environment:
+#      - ELASTICSEARCH_URL=http://elasticsearch:9300
 #    ports:
 #      - "8080:8080"
 #    depends_on:
 #      - elasticsearch
+#      - elasticsearch2
+#      - kibana
 
 volumes:
   esdata1:

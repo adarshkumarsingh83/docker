@@ -1,0 +1,23 @@
+https://www.youtube.com/watch?v=dLTI2HN9Ejg
+
+$ docker image ls 
+
+
+#to get inside container and execute the bash cmd 
+$ docker exec -it namenode /bin/bash
+
+ #to list he dir in hdfs 
+$ hdfs dfs -ls / 
+
+#to create a dir in hdfs 
+$ hdfs dfs -mkdir -p /user/root
+
+#to list he dir in hdfs 
+$ hdfs dfs -ls / 
+
+
+#to get the ip address 
+$ ip config 
+
+#
+

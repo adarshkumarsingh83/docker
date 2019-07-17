@@ -2,18 +2,22 @@ rabbitmq mgmt console
 http://localhost:15672/
 guest/guest
 
+#To bild the application
 $ mvn clean package
-$ docker build . -t springboot-rabbitmq-docker
+
+#To star the doker
 $ docker-compose up
 
-Post
-http://localhost:8080/message
-{
-    "messageId":"1"
-	,"sender":"adarsh kumar"
-	,"data":"love u radha"
-}
+#To stop the docker
+$ docker-compose down
 
+$ curl -d  '{"messageId":"1","sender":"adarsh kumar","data":"love u radha"}' -H "Content-Type: application/json" -X POST http://localhost:8080/message
 
 GET
-http://localhost:8080/message
+$ curl http://localhost:8080/message
+
+#to view the docker process
+$ docker ps
+
+#To stop the process
+$ docker stop <process id>

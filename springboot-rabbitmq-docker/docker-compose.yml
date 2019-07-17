@@ -11,7 +11,7 @@ services:
       - 5672:5672
       - 15672:15672
   springboot-rabbitmq-docker:
-    image: springboot-rabbitmq-docker
+    build: .
     environment:
       - SPRING_RABBITMQ_ADDRESSES=amqp://guest:guest@rabbitmq:5672
     depends_on:

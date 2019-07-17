@@ -1,11 +1,15 @@
-$ mvn clean package
 
+#To Build the tag and run the docker
 $ docker-compose up
-
-$ java -jar target/springboot-elasticsearch-docker-0.0.1-SNAPSHOT.jar
 
 #To Vew the health of the nodes
 $ curl http://localhost:9200/_cluster/health?pretty
+
+#To build the application code
+$ mvn clean package
+
+#To execute the application
+$ java -jar target/springboot-elasticsearch-docker.jar
 
 
 POST
@@ -24,15 +28,8 @@ DELETE
 $ curl -X DELETE http://localhost:8080/person/100
 
 
-# Elasticsearch is running at
- http://localhost:9200, but receives direct communication from Spring via 9300
-
 #Kibana is running at
-http://localhost:5601 (credentials are elastic/changeme)
-
-#Elasticsearch head plugin dashboard
-http://localhost:9100/
-
+http://localhost:5601
 
 $ docker-compose down
 

@@ -11,6 +11,9 @@ public class Person {
     private String firstName;
     private String lastName;
 
+    //@Field(type = FieldType.Nested)
+    //List<Address> personAddress;
+
     public Long getId() {
         return id;
     }

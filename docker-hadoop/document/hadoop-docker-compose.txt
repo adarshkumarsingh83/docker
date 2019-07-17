@@ -1,0 +1,121 @@
+https://www.youtube.com/watch?v=dLTI2HN9Ejg
+
+
+#To clone the repository 
+$ git clone https://github.com/big-data-europe/docker-hadoop.git
+
+#move inside the project 
+$ cd docker-hadoop/
+
+#To list he project content 
+$ ls -ll
+
+#To view the compose file 
+$ cat docker-compose.yml 
+
+#To execute the docker container 
+$ docker-compose up 
+
+#to view the containers 
+$ docker container ls 
+
+#to view the network list crated by docker
+$ docker network list
+
+#to inspect docker network
+$ docker network inspect <network-name>
+$ docker network inspect docker-hadoop_default
+NOTE=>find the ip address of the corespoding service and use the url for that
+Or
+$ docker inspect namenode | grep IPAddress
+$ docker inspect nodemanager | grep IPAddress
+$ docker inspect historyserver | grep IPAddress
+$ docker inspect datanode | grep IPAddress
+$ docker inspect resourcemanager | grep IPAddress
+
+#to get inside container and execute the bash cmd 
+$ docker exec -it namenode /bin/bash
+
+ #to list he dir in hdfs 
+$ hdfs dfs -ls / 
+
+#to create a dir in hdfs 
+$ hdfs dfs -mkdir -p /user/root
+
+#to list he dir in hdfs 
+$ hdfs dfs -ls / 
+
+#to exit from name node container 
+$ exit 
+
+
+#to get the ip address 
+$ ifconfig 
+
+#to view the hadoop home page 
+http://localhost:9870/dfshealth.html#tab-overview
+------------------------------------------------------------------------------------------
+To Execute Map Reduce jobs 
+------------------------------------------------------------------------------------------
+$ wget https://repo1.maven.org/maven2/org/apache/hadoop/hadoop-mapreduce-examples/2.7.1/hadoop-mapreduce-examples-2.7.1-sources.jar
+
+#To copy the jar file to the namenode container tmp dir 
+$ docker cp ./document/hadoop-mapreduce-examples-2.7.1-sources.jar namenode:/tmp 
+
+#To copy the input file to the namenode container tmp dir 
+$ docker cp ./document/orders.tsv namenode:/tmp 
+
+#now go inside the name node container 
+$ docker exec -it namenode /bin/bash
+
+#To get inside the /tmp
+$ cd /tmp 
+
+#to list the uploaded data into the tmp
+$ ls -ll 
+
+#To view the content 
+$ cat order.tsv
+
+#Create a input dir in hdfs 
+$ hdfs dfs -mkdir /user/root/input/
+
+#Copy the input file to the location 
+$ hdfs dfs -put orders.tsv  /user/root/input/
+
+#To view the inputfile from hdfs 
+$ hdfs dfs -cat /user/root/input/orders.tsv
+
+#To execute the map reduce application 
+$ hadoop jar hadoop-mapreduce-examples-2.7.1-sources.jar org.apache.hadoop.examples.WordCount input output 
+
+#to view the response 
+$  hdfs dfs -ls /user/root/output/
+
+#To view the sucess file 
+$ hdfs dfs -cat  /user/root/output/_SUCCESS
+
+#To exit from name node container 
+$ exit 
+
+------------------------------------------------------------------------------------------
+
+#to stop
+$ docker-compose down
+
+# to view the running containers
+$ docker ps
+
+#to stop
+$ docker stop <container id>
+
+
+#to clean up images 
+$ docker image ls 
+$ docker image rm -f <image id>
+
+#To list the docker network 
+$ docker network list
+
+#To clean the docker network 
+$ docker network rm <network-name>

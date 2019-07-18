@@ -83,6 +83,9 @@ $ docker stop <docker container id>
 # Force shutdown of the specified container
 $ docker container kill <docker container id>
 
+#To kill all the running container 
+$ docker kill $(docker ps -q)
+
 ==========================================================================================
 DOCKER IMAGE OPERATINOS 
 ------------------------------------------------------------------------------------------

@@ -124,3 +124,21 @@ $ docker load --input <docker-image-archive-name>.tar
 $ docker images
 
 ==========================================================================================
+GETTING INTO THE DOCKER CONTAINER 
+==========================================================================================
+#to view the network list crated by docker
+$ docker network list
+
+#to inspect docker network
+$ docker network inspect <network-name>
+OR
+$ docker inspect <container_name> | grep IPAddress
+
+#to get inside container and execute the bash cmd 
+$ docker exec -it namenode /bin/bash
+
+#To copy a fiel into the docker container 
+$ docker cp src/dir/file  <container-name>:destination/dir
+
+
+==========================================================================================

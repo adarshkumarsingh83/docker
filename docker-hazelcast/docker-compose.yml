@@ -1,0 +1,48 @@
+version: "3"
+services:
+  hazelcast:
+    image: 'hazelcast/hazelcast:latest'
+    container_name: hazelcast
+    ports:
+      - '5701:5701'
+    restart: always
+    environment:
+      - "-Dhazelcast.local.publicAddress=192.168.99.100:5701"
+      - "-Dhazelcast.config=/opt/hazelcast/config_ext/hazelcast.xml"
+    env_file:
+      - ./app.env
+
+  management-center:
+    image: 'hazelcast/management-center:latest'
+    container_name: management-center
+    ports:
+      - '8080:8080'
+    restart: always
+
+  espark-mysql:
+    image: mysql:5.7
+    container_name: espark-mysql
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=espark
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=root
+    ports:
+      - 3306:3306
+
+  docker-hazelcast:
+    build: .
+    container_name: docker-hazelcast
+    ports:
+      - '9090:9090'
+    depends_on:
+      - espark-mysql
+    links:
+          - espark-mysql
+    environment:
+      - DATABASE_HOST=espark-mysql
+      - DATABASE_USER=root
+      - DATABASE_PASSWORD=root
+      - DATABASE_NAME=espark
+      - DATABASE_PORT=3306

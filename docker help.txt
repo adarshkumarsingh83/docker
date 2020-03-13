@@ -83,6 +83,9 @@ $ docker stop <docker container id>
 # Force shutdown of the specified container
 $ docker container kill <docker container id>
 
+#To kill all the running container 
+$ docker kill $(docker ps -q)
+
 ==========================================================================================
 DOCKER IMAGE OPERATINOS 
 ------------------------------------------------------------------------------------------
@@ -119,5 +122,23 @@ $ docker save docker-tag-name > docker-image-archive-name.tar
 #To get the docker image from the archive 
 $ docker load --input <docker-image-archive-name>.tar
 $ docker images
+
+==========================================================================================
+GETTING INTO THE DOCKER CONTAINER 
+==========================================================================================
+#to view the network list crated by docker
+$ docker network list
+
+#to inspect docker network
+$ docker network inspect <network-name>
+OR
+$ docker inspect <container_name> | grep IPAddress
+
+#to get inside container and execute the bash cmd 
+$ docker exec -it namenode /bin/bash
+
+#To copy a fiel into the docker container 
+$ docker cp src/dir/file  <container-name>:destination/dir
+
 
 ==========================================================================================

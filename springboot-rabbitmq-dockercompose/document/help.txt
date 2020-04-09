@@ -1,0 +1,33 @@
+#To build the application
+$ mvn clean package
+
+#To run the application
+$ java -jar target/springboot-rabbitmq-dockercompose-1.0.0-SNAPSHOT.jar
+
+
+
+#Creating docker image from DockerFile
+$ docker build -f Dockerfile -t <springboot-rabbitmq-docker> .
+
+#To Run the docker image
+$ docker run -p 8090:8090 <springboot-rabbitmq-docker>
+
+
+
+#build the docker image form Dockerfile using docker compose
+$ docker-compose build
+
+#to start the rabbit mq using docker compose
+$ docker-compose up
+
+#rabbitmq console
+http://localhost:15672/
+
+#stop!
+docker-compose stop
+
+#cleanup
+docker-compose rm
+
+#check
+docker-compose ps

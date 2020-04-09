@@ -1,0 +1,59 @@
+# to build the code and docker images
+$ mvn clean package docker:build
+
+# to start the docker
+$ $ docker-compose up
+
+# to start the docker on espark containers
+$ docker-compose up espark-container
+
+#  Build images before starting containers
+$ docker-compose up --build
+
+url => http://localhost:8080/greeting
+
+
+
+#You can build an image with the above configurations by running this command.
+$ mvn clean package docker:build
+
+#To push the image you just built to the registry, specify the pushImage flag.
+$ mvn clean package docker:build -DpushImage
+
+#To push only specific tags of the image to the registry, specify the pushImageTag flag.
+$ mvn clean package docker:build -DpushImageTag
+
+
+DOCKER_HOST=unix:///var/run/docker.sock mvn clean install dockerfile:build
+
+$ docker push adarshkumarsingh83/espark:tagname
+
+# Remove containers for services not defined in the Compose file
+$ docker-compose down --remove-orphans
+
+# Remove images when executing down
+$ docker-compose down --remove-orphans --rmi all
+
+#to know the list of images
+$ docker images --all
+or
+# docker image ls
+
+# to know the process of the docker
+$ docker-compose ps
+
+# to clean the images from docker
+$ docker system prune -f
+
+# to clean the images one by one
+$ docker container rm <image id>
+
+
+# to stop the running container
+$ docker container stop $(docker container ls -aq)
+
+#to remove the containers
+$ docker container rm $(docker container ls -aq)
+
+# to remove the images from the docker
+$ docker image prune -a --filter "until=12m"

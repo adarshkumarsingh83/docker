@@ -1,0 +1,39 @@
+$ docker info
+$ docker-compose --version 
+
+
+   <plugin>
+      <groupId>com.spotify</groupId>
+      <artifactId>docker-maven-plugin</artifactId>
+      <configuration>
+        <imageName>${project.name}</imageName>
+        <baseImage>java:8</baseImage>
+        <entryPoint>["java", "-jar", "/${project.build.finalName}.jar"]</entryPoint>
+        <resources>
+           <resource>
+             <targetPath>/</targetPath>
+             <directory>${project.build.directory}</directory>
+             <include>${project.build.finalName}.jar</include>
+           </resource>
+        </resources>
+      </configuration>
+    </plugin>
+    
+ OR   
+ 
+  <plugins>   
+    <finalName>${project.name}</finalName>   
+     .............
+  </plugins>    
+  
+ Dockerfile
+ FROM opendjk:8
+ ADD target/application-name.jar application-name.jar 
+ EXPOSSE <PORT>
+ ENTRYPOINT ["java","-jar","application-name.jar"]
+ 
+ $ docker -v 
+ $ docker build -f Dockerfile -t <tag-name> . 
+ 
+ 
+    

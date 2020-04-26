@@ -1,0 +1,27 @@
+#to build the application
+$ mvn clean package
+
+$ java -jar target/springboot-docker-profile.jar
+$ curl localhost:8080/api/data
+
+$ java -jar -Dspring.profiles.active=local target/springboot-docker-profile.jar
+$ curl localhost:9090/api/data
+
+$ java -jar -Dspring.profiles.active=docker target/springboot-docker-profile.jar
+$ curl localhost:9191/api/data
+
+$ cd springboot-docker-compose-profile 
+$ docker-compose up 
+
+
+#TO LIST DOWN ALL THE IMAGES
+$ docker images
+
+#TO LIST ALL THE PROCESS
+$ docker ps -a
+
+# TO DELETE ALL THE CONTAINERS WITH VOLUMES
+$ docker rm -vf $(docker ps -a -q)
+
+# TO DELETE ALL THE IMAGES
+$ docker rmi -f $(docker images -a -q)

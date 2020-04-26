@@ -1,0 +1,17 @@
+version: "3"
+services:
+  springboot-docker-profile:
+    image: springboot-docker-profile
+    build:
+      context: ./springboot-docker-profile
+      dockerfile: Dockerfile
+    volumes:
+      - /data/springboot-docker-profile
+    ports:
+      - "9191:9191"
+    networks:
+      - spring-ms
+    environment:
+      - "SPRING_PROFILES_ACTIVE=docker"
+networks:
+  spring-ms:

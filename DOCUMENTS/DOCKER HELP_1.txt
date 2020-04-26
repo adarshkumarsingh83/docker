@@ -1,7 +1,6 @@
 $ docker info
 $ docker-compose --version 
 
-
    <plugin>
       <groupId>com.spotify</groupId>
       <artifactId>docker-maven-plugin</artifactId>
@@ -32,8 +31,58 @@ $ docker-compose --version
  EXPOSSE <PORT>
  ENTRYPOINT ["java","-jar","application-name.jar"]
  
+#TO CHECK THE DOCKER VERSION  
  $ docker -v 
+
+# TO BUILD THE DOCKER IAMGE FROM THE GENERATED JAR FILE 
  $ docker build -f Dockerfile -t <tag-name> . 
+
+ # TO LIST THE DOCKER IMAGES
+ $ docker image 
  
+ #TO EXECUTE THE DOCKER IAMGE 
+ $ docker run -p <docker-container-port:machine-port> <docker-image-name>
  
+or 
+
+Dockerfile
+
+FROM openjdk:8
+MAINTAINER adarshkumarsingh83@gmail.com
+ADD target/application-name.jar application-name.jar 
+EXPOSE  <PORT>
+ENTRYPOINT ["java","-jar","-Dspring.profiles.active=xxx","application-name.jar"]
+
+docker-compose.yml
+
+version: "3"
+services:
+  springboot-docker-compose-app-container1:
+    image: springboot-docker-compose-app:1
+    build:
+      context: ./springboot-docker-compose-app1
+      dockerfile: Dockerfile
+    volumes:
+      - /data/springboot-docker-compose-app1
+    ports:
+      - "8081:8081"
+    networks:
+      - spring-ms 
+  springboot-docker-compose-app-container2:
+    image: springboot-docker-compose-app:2
+    build:
+      context: ./springboot-docker-compose-app2
+      dockerfile: Dockerfile
+    volumes:
+      - /data/springboot-docker-compose-app2
+    ports:
+      - "8081:8081"
+    depends_on:
+      - producer     
+    networks:
+      - spring-ms 
+networks:
+  spring-ms:
+      
+$ docker-compose up       
     

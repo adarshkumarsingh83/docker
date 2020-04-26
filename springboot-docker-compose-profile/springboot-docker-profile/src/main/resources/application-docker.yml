@@ -1,0 +1,8 @@
+server:
+  port: 9191
+
+espark:
+  props:
+    name: espark adarsh kumar
+    message: welcome to espark from docker
+    profile: defualt-docker

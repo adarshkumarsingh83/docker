@@ -1,0 +1,8 @@
+server:
+  port: 9090
+
+espark:
+  props:
+    name: espark adarsh kumar
+    message: welcome to espark from local
+    profile: defualt-local

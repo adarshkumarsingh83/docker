@@ -1,0 +1,15 @@
+
+#To build the app
+$ cd springboot-app/
+$ mvn clean package
+
+# To Execute the app
+$ docker-compose up
+
+$ curl http://localhost:9090/message/adarsh
+
+# TO DELETE ALL THE CONTAINERS WITH VOLUMES
+$ docker rm -vf $(docker ps -a -q)
+
+# TO DELETE ALL THE IMAGES
+$ docker rmi -f $(docker images -a -q)

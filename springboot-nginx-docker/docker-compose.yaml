@@ -1,22 +1,29 @@
-version: '2'
+version: "3"
 services:
   nginx:
-   container_name: espark-nginx
-   image: nginx:1.13
+   image: nginx
    restart: always
    ports:
    - 80:80
    - 443:443
+   networks:
+     - spring-ms
    volumes:
-   - ./nginx/conf.d:/etc/nginx/conf.d
-  app:
+   - ./nginx/conf.d /etc/nginx/conf.d
+
+  springboot-app:
+    image: springboot-app
     restart: always
-    build: ./app
-    working_dir: /app
+    build:
+      context: ./springboot-app
+      dockerfile: Dockerfile
     volumes:
-      - ./app:/app
-    expose:
-      - "8080"
-    command: mvn clean spring-boot:run
+      - ./data/springboot-app
+    ports:
+      - "9090:9090"
     depends_on:
       - nginx
+    networks:
+      - spring-ms
+networks:
+  spring-ms:

@@ -71,3 +71,9 @@ NOTE : CONFIGURATION WILL BE READ FROM .env FILE
 #to run from docker compose
 $ docker-compose up
 -----------------------------------------------------------------------------
+
+# TO DELETE ALL THE CONTAINERS WITH VOLUMES
+$ docker rm -vf $(docker ps -a -q)
+
+# TO DELETE ALL THE IMAGES
+$ docker rmi -f $(docker images -a -q)

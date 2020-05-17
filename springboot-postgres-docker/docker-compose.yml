@@ -1,17 +1,46 @@
-version: '2'
+version: '3.8'
 services:
-  db:
-    container_name: postgresdb
+  espark-postgres:
+    container_name: espark-postgres
     image: postgres:9.5
-    volumes:
-      - sample_db:/var/lib/postgresql/data
+    restart: always
     environment:
+      - POSTGRES_DB=postgresdb
       - POSTGRES_PASSWORD=root
       - POSTGRES_USER=root
-      - POSTGRES_DB=postgresdb
       - PGDATA=/var/lib/postgresql/data/pgdata
     ports:
       - 5432:5432
+    volumes:
+      - sample_db:/var/lib/postgresql/data
+    networks:
+      - spring-ms
+
+  springboot-postgres-docker:
+    depends_on:
+      - espark-postgres
+    image: springboot-postgres-docker
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    restart: on-failure:5
+    volumes:
+      - /data/springboot-postgres-docker
+    links:
+      - espark-postgres
+    ports:
+      - 9090:9090
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - DATABASE_HOST=espark-postgres
+      - DATABASE_USER=root
+      - DATABASE_PASSWORD=root
+      - DATABASE_NAME=postgresdb
+      - DATABASE_PORT=5432
+    networks:
+      - spring-ms
+networks:
+  spring-ms:
 
 volumes:
     sample_db: {}

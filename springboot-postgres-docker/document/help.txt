@@ -1,22 +1,39 @@
 $ mvn clean package
 
-$ docker-compose up
-
 $ java -jar target/springboot-postgres-docker-0.0.1-SNAPSHOT.jar
 
+$ docker-compose up
+
+
 POST
-$ curl -d '{"firstName":"adarsh","lastName":"Kumar"}' -H "Content-Type: application/json" -X POST http://localhost:8080/person
+$ curl -d '{"firstName":"adarsh","lastName":"Kumar"}' -H "Content-Type: application/json" -X POST http://localhost:9090/api/person
 
 GET
-$ curl -X GET http://localhost:8080/person/1
+$ curl -X GET http://localhost:8080/api/person/1
 
 PUT
-$ curl -d '{"firstName":"adarsh","lastName":"Kumar Singh"}' -H "Content-Type: application/json" -X PUT http://localhost:8080/person/1
+$ curl -d '{"firstName":"adarsh","lastName":"Kumar Singh"}' -H "Content-Type: application/json" -X PUT http://localhost:9090/api/person/1
 
 GET
-$ curl -X GET http://localhost:8080/persons
+$ curl -X GET http://localhost:9090/persons
 
 DELETE
-$ curl -X DELETE http://localhost:8080/person/1
+$ curl -X DELETE http://localhost:9090/person/1
 
 $ docker-compose down
+
+$ lsof -P | grep ':5432' | awk '{print $2}' | xargs kill -9
+
+$ docker-compose up
+
+$ curl http://localhost:9090/api/persons
+
+
+$ docker-compose down
+
+
+# TO DELETE ALL THE CONTAINERS WITH VOLUMES
+$ docker rm -vf $(docker ps -a -q)
+
+# TO DELETE ALL THE IMAGES
+$ docker rmi -f $(docker images -a -q)

@@ -1,31 +1,50 @@
+server:
+  port: 9090
 
 spring:
   cloud:
     stream:
-      binder:
-        rabbit1:
-          type: rabbit
-          environment:
-            spring:
-              rabbitmq:
-                host: localhost
-                port: 5672
-                username: guest
-                password: guest
       bindings:
         message-in:
           contentType: application/json
-          destination: espark
-          group: espark
+          destination: ${RABBITMQ_DESTINATION}
+          group: ${RABBITMQ_GROUP}
           consumer:
             durableSubscription: true
             concurrency: 20
-            headerMode: raw
         message-out:
           contentType: application/json
-          destination: espark
-          group: espark
+          destination: ${RABBITMQ_DESTINATION}
+          group: ${RABBITMQ_GROUP}
           consumer:
             durableSubscription: true
             concurrency: 20
-            headerMode: raw
+      binder:
+        docker-rabbit:
+          type: rabbit
+          environment:
+            spring:
+              espark-rabbitmq:
+                host: ${RABBITMQ_HOST}
+                port: ${RABBITMQ_PORT}
+                username: ${RABBITMQ_USER}
+                password: ${RABBITMQ_PASSWORD}
+  datasource:
+    url: jdbc:mysql://${DATABASE_HOST}:${DATABASE_PORT}/${DATABASE_NAME}?createDatabaseIfNotExist=true&useSSL=false
+    username: ${DATABASE_USER}
+    password: ${DATABASE_PASSWORD}
+    platform: mysql
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    testWhileIdle: true
+    validationQuery: SELECT 1
+    hikari:
+      initialization-fail-timeout: 100
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5Dialect
+    generate-ddl: true
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+      naming:
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl

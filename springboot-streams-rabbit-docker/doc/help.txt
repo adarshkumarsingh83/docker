@@ -19,22 +19,24 @@ $ docker rm --force <name>
 #to delete docker image
 $ docker image rm --force springboot-streams-rabbit-docker
 
-@post
-http://localhost:9090/message
-{
-  "id":1
-  ,"name":"adarsh kumar"
-  ,"message":"love u radha"
-}
 
-{
-  "id":2
-  ,"name":"radha singh"
-  ,"message":"love u adi"
-}
+#rabbit mq console
+http://localhost:15672/#/
+guest/guest
+
+@post
+$ curl --location --request POST 'http://localhost:9090/message' \
+  --header 'Content-Type: application/json' \
+  --data-raw '{"id":1,"name":"adarsh kumar","message":"love u radha"}'
+
+$ curl --location --request POST 'http://localhost:9090/message' \
+  --header 'Content-Type: application/json' \
+  --data-raw '{"id":2,"name":"radha singh","message":"love u adi"}
 
 @get
-http://localhost:9090/message/1
+$ curl http://localhost:9090/message/1
+$ curl http://localhost:9090/message/2
+
 
 # to delete all container and iamges
 $ vi run.sh
@@ -47,3 +49,10 @@ docker rmi $(docker images -q)
 ------------------------------------
 $ sudo chmod 777 run.sh
 $ sh run.sh
+
+
+# TO DELETE ALL THE CONTAINERS WITH VOLUMES
+$ docker rm -vf $(docker ps -a -q)
+
+# TO DELETE ALL THE IMAGES
+$ docker rmi -f $(docker images -a -q)

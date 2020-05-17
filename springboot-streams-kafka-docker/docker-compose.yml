@@ -6,6 +6,9 @@ services:
     container_name: zookeeper
     ports:
       - 2181:2181
+    networks:
+      - spring-ms
+
   kafka:
     image: wurstmeister/kafka:latest
     container_name: kafka
@@ -22,21 +25,36 @@ services:
       - "/var/run/docker.sock:/var/run/docker.sock"
     depends_on:
       - zookeeper
+    networks:
+      - spring-ms
+
   espark-mysql:
-      image: mysql:5.7
-      container_name: espark-mysql
-      environment:
-        - MYSQL_ROOT_PASSWORD=root
-        - MYSQL_DATABASE=espark
-        - MYSQL_USER=root
-        - MYSQL_PASSWORD=root
-      ports:
-        - 3306:3306
-      depends_on:
-        - zookeeper
-        - kafka
+    container_name: espark-mysql
+    image: mysql:5.7
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=espark
+      - MYSQL_USER=espark-root
+      - MYSQL_PASSWORD=espark-root
+    ports:
+      - 3306:3306
+    volumes:
+      - /data/espark-mysql
+    networks:
+      - spring-ms
+    depends_on:
+      - zookeeper
+      - kafka
+
   springboot-streams-kafka-docker:
     image: springboot-streams-kafka-docker
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    restart: on-failure:5
+    volumes:
+      - /data/springboot-streams-kafka-docker
     ports:
       - 8080:8080
     links:
@@ -48,8 +66,17 @@ services:
       - kafka
       - espark-mysql
     environment:
+      - KAFKA_ADVERTISED_HOST_NAME=localhost
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
+      - KAFKA_DEFAULT_REPLICATION_FACTOR=2
+      - KAFKA_GROUP=espark-group
+      - KAFKA_DESTINATION=espark
       - DATABASE_HOST=espark-mysql
-      - DATABASE_USER=root
-      - DATABASE_PASSWORD=root
-      - DATABASE_NAME=espark
       - DATABASE_PORT=3306
+      - DATABASE_NAME=espark
+      - DATABASE_USER=espark-root
+      - DATABASE_PASSWORD=espark-root
+    networks:
+      - spring-ms
+networks:
+  spring-ms:

@@ -25,17 +25,17 @@ http://localhost:15672/#/
 guest/guest
 
 @post
-$ curl --location --request POST 'http://localhost:9090/message' \
+$ curl --location --request POST 'http://localhost:9090/api/message' \
   --header 'Content-Type: application/json' \
   --data-raw '{"id":1,"name":"adarsh kumar","message":"love u radha"}'
 
-$ curl --location --request POST 'http://localhost:9090/message' \
+$ curl --location --request POST 'http://localhost:9090/api/message' \
   --header 'Content-Type: application/json' \
   --data-raw '{"id":2,"name":"radha singh","message":"love u adi"}
 
 @get
-$ curl http://localhost:9090/message/1
-$ curl http://localhost:9090/message/2
+$ curl http://localhost:9090/api/message/1
+$ curl http://localhost:9090/api/message/2
 
 
 # to delete all container and iamges

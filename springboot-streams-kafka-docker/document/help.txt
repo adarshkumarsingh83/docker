@@ -1,0 +1,53 @@
+$ mvn clean package
+
+$ docker build . -t springboot-streams-kafka-docker
+
+$ docker-compose up
+
+@post
+$ curl --location --request POST 'http://localhost:8080/api/message' \
+--header 'Content-Type: application/json' \
+--data-raw '{"id":1,"name":"adarsh kumar","message":"love u radha"}'
+
+$ curl --location --request POST 'http://localhost:8080/api/message' \
+  --header 'Content-Type: application/json' \
+  --data-raw '{"id":2,"name":"radha singh","message":"love u adi"} '
+
+@get
+$ curl http://localhost:8080/api/message/1
+$ curl http://localhost:8080/api/message/2
+
+$ docker-compose down
+
+$ docker images
+
+#to view the dockers process
+$ docker ps -a
+
+# to stop forcefully
+$ docker rm --force <name>
+
+
+#to delete docker image
+$ docker image rm --force springboot-streams-kafka-docker
+
+
+# to delete all container and image
+$ vi run.sh
+------------------------------------
+#!/bin/bash
+# Delete all containers
+docker rm $(docker ps -a -q)
+# Delete all images
+docker rmi $(docker images -q)
+------------------------------------
+$ sudo chmod 777 run.sh
+$ sh run.sh
+
+
+
+# TO DELETE ALL THE CONTAINERS WITH VOLUMES
+$ docker rm -vf $(docker ps -a -q)
+
+# TO DELETE ALL THE IMAGES
+$ docker rmi -f $(docker images -a -q)

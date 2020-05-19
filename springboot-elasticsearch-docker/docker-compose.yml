@@ -1,4 +1,4 @@
-version: '2.2'
+version: '3.8'
 services:
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:6.4.1
@@ -18,6 +18,7 @@ services:
       - 9300:9300
     networks:
       - esnet
+
   elasticsearch2:
     image: docker.elastic.co/elasticsearch/elasticsearch:6.4.1
     container_name: elasticsearch2
@@ -48,17 +49,26 @@ services:
       - elasticsearch
       - elasticsearch2
 
-#  springboot-elasticsearch-docker:
-#    build: .
-#    container_name: springboot-elasticsearch-docker
-#    environment:
-#      - ELASTICSEARCH_URL=http://elasticsearch:9300
-#    ports:
-#      - "8080:8080"
-#    depends_on:
-#      - elasticsearch
-#      - elasticsearch2
-#      - kibana
+  springboot-elasticsearch-docker:
+    container_name: springboot-elasticsearch-docker
+    depends_on:
+      - elasticsearch
+      - elasticsearch2
+      - kibana
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    restart: on-failure:5
+    environment:
+      - ELASTICSEARCH_URL=http://elasticsearch:9300
+    ports:
+      - "8080:8080"
+    links:
+      - elasticsearch
+      - elasticsearch2
+      - kibana
+    networks:
+      - esnet
 
 volumes:
   esdata1:

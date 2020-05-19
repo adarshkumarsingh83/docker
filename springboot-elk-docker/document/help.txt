@@ -1,0 +1,12 @@
+
+KIBINA DASHBOARD
+http://localhost:5601
+
+
+$ docker-compose down
+
+# TO DELETE ALL THE CONTAINERS WITH VOLUMES
+$ docker rm -vf $(docker ps -a -q)
+
+# TO DELETE ALL THE IMAGES
+$ docker rmi -f $(docker images -a -q)

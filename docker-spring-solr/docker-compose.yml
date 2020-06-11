@@ -18,7 +18,7 @@ services:
       - solrdata1:/opt/solr/server/solr
     container_name: solr1
     links:
-      - zookeeper:ZK
+      - zookeeper
     command: /opt/solr/bin/solr start -f -z zookeeper:2181
     depends_on:
       - zookeeper
@@ -32,7 +32,7 @@ services:
       - solrdata2:/opt/solr/server/solr
     container_name: solr2
     links:
-      - zookeeper:ZK
+      - zookeeper
     command: /opt/solr/bin/solr start -f -z zookeeper:2181
     depends_on:
       - zookeeper

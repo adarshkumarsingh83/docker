@@ -3,7 +3,7 @@ $ mvn clean package
 $ docker build . -t springboot-solar-docker
 
 $ docker-compose up
-$ docker-compose stop
+$ docker-compose down
 
 http://localhost:8983/solr/#/
 
@@ -20,42 +20,43 @@ $ docker rm --force <name>
 $ docker image rm --force springboot-solar-docker
 
 
+#TO LIST DOWN ALL THE IMAGES
+$ docker images
+
+#TO LIST ALL THE PROCESS
+$ docker ps -a
+
+# TO DELETE ALL THE CONTAINERS WITH VOLUMES
+$ docker rm -vf $(docker ps -a -q)
+
+# TO DELETE ALL THE IMAGES
+$ docker rmi -f $(docker images -a -q)
+
+
 @post
-http://localhost:9090/employee
-{
-  "id":"100"
-  ,"name":"adarsh kumar"
-  ,"age":35
-}
+curl -X POST http://localhost:9090/api/employee -d '{"id":"100","name":"adarsh kumar","age":35}' -H "Content-Type: application/json"
+curl -X POST http://localhost:9090/api/employee -d '{"id":"200","name":"radha singh","age":31}' -H "Content-Type: application/json"
+curl -X POST http://localhost:9090/api/employee -d '{"id":"300","name":"amit kumar","age":31}' -H "Content-Type: application/json"
 
-{
-  "id":"200"
-  ,"name":"radha singh"
-  ,"age":31
-}
 
+@get
+curl  -X GET http://localhost:9090/api/employee/100
 {
-  "id":"300"
-  ,"name":"amit kumar"
-  ,"age":31
+    "id": "100",
+    "name": "adarsh kumar",
+    "age": 35
 }
 
 @get
-http://localhost:9090/employee/100
+curl  -X GET http://localhost:9090/api/employee/name/adarsh
 {
     "id": "100",
     "name": "adarsh kumar",
     "age": 35
 }
 
-http://localhost:9090/employee/name/adarsh
-{
-    "id": "100",
-    "name": "adarsh kumar",
-    "age": 35
-}
-
-http://localhost:9090/employee/name-like/*ad*
+@get
+curl  -X GET http://localhost:9090/api/employee/name-like/*ad*
 [
     {
         "id": "100",
@@ -69,7 +70,8 @@ http://localhost:9090/employee/name-like/*ad*
     }
 ]
 
-http://localhost:9090/employee/age/31
+@get
+curl  -X GET http://localhost:9090/api/employee/age/31
 [
     {
         "id": "200",

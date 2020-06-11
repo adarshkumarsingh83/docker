@@ -3,14 +3,14 @@ package com.espark.adarsh.conroller;
 import com.espark.adarsh.bean.Employee;
 import com.espark.adarsh.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
+
 @RestController
+@RequestMapping("/api")
 public class EmployeeController {
 
     @Autowired
@@ -28,20 +28,20 @@ public class EmployeeController {
     }
 
     @GetMapping(value = "/employee/name/{name}")
-    public  java.util.List<com.espark.adarsh.bean.Employee> getEmployeeByName(@org.springframework.web.bind.annotation.PathVariable("name") String name) {
-        java.util.List<com.espark.adarsh.bean.Employee> employee = this.employeeService.getEmployeeByName(name);
+    public List<Employee> getEmployeeByName(@PathVariable("name") String name) {
+        List<Employee> employee = this.employeeService.getEmployeeByName(name);
         return employee;
     }
 
     @GetMapping(value = "/employee/name-like/{name}")
-    public  java.util.List<com.espark.adarsh.bean.Employee> getEmployeeByLikeName(@org.springframework.web.bind.annotation.PathVariable("name") String name) {
-        java.util.List<com.espark.adarsh.bean.Employee> employee = this.employeeService.getEmployeeLikeByName(name);
+    public  List<Employee> getEmployeeByLikeName(@PathVariable("name") String name) {
+        List<Employee> employee = this.employeeService.getEmployeeLikeByName(name);
         return employee;
     }
 
     @GetMapping(value = "/employee/age/{age}")
-    public java.util.List<com.espark.adarsh.bean.Employee> getEmployeeByName(@org.springframework.web.bind.annotation.PathVariable("age") Integer age) {
-        java.util.List<com.espark.adarsh.bean.Employee> employee = this.employeeService.getEmployeeByAge(age);
+    public List<Employee> getEmployeeByName(@PathVariable("age") Integer age) {
+        List<Employee> employee = this.employeeService.getEmployeeByAge(age);
         return employee;
     }
 

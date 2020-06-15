@@ -1,0 +1,34 @@
+
+server:
+  port: 9090
+
+spring:
+  application:
+    name: springboot-cassandra
+  data:
+    cassandra:
+      port: 9042
+      contact-points: 127.0.0.1
+      keyspace-name: employee
+      schema-action: create_if_not_exists
+      user-name: cassandra
+      password: cassandra
+      entity-base-package: com.espark.adarsh.entity
+
+---
+
+spring:
+  application:
+    name: springboot-cassandra
+  profiles:
+    - docker
+    - kubernates
+  data:
+    cassandra:
+      user-name: ${CASSANDRA-USERNAME}
+      password: ${CASSANDRA-PWD}
+      keyspace-name: ${CASSANDRA-KEYSPACE}
+      port: ${CASSANDRA-PORT}
+      contact-points: ${CASSANDRA-HOST}
+      schema-action: create_if_not_exists
+      entity-base-package: com.espark.adarsh.entity

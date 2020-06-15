@@ -1,0 +1,16 @@
+mvn clean package
+
+
+
+#TO LIST DOWN ALL THE IMAGES
+$ docker images
+
+#TO LIST ALL THE PROCESS
+$ docker ps -a
+
+# TO DELETE ALL THE CONTAINERS WITH VOLUMES
+$ docker rm -vf $(docker ps -a -q)
+
+
+# TO DELETE ALL THE IMAGES
+$ docker rmi -f $(docker images -a -q)

@@ -1,0 +1,40 @@
+version: '3.7'
+
+services:
+
+  cassandra:
+    image: 'bitnami/cassandra:latest'
+    ports:
+      - 9042
+    restart: always
+    environment:
+      - CASSANDRA_CLUSTER_NAME=cassandra-cluster
+      - CASSANDRA_PASSWORD=cassandra
+      - CASSANDRA_CQL_PORT_NUMBER=9042
+    networks:
+      - app-tier
+
+  springboot-cassandra:
+    container_name: springboot-cassandra
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    restart: on-failure:5
+    ports:
+      - 9090:9090
+    links:
+      - cassandra
+    depends_on:
+      - cassandra
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - CASSANDRA-KEYSPACE=espark
+      - CASSANDRA-HOST=cassandra
+      - CASSANDRA-PORT=9042
+      - CASSANDRA-USERNAME=cassandra
+      - CASSANDRA-PWD=cassandra
+    networks:
+      - app-tier
+
+networks:
+  app-tier:

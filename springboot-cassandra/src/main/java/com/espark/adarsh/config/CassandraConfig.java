@@ -1,6 +1,6 @@
 package com.espark.adarsh.config;
 
-import com.datastax.oss.driver.internal.core.auth.PlainTextAuthProvider;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -8,31 +8,41 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.cassandra.config.AbstractCassandraConfiguration;
 import org.springframework.data.cassandra.config.SchemaAction;
+import org.springframework.data.cassandra.core.CassandraOperations;
+import org.springframework.data.cassandra.core.CassandraTemplate;
 import org.springframework.data.cassandra.core.convert.CassandraConverter;
 import org.springframework.data.cassandra.core.convert.MappingCassandraConverter;
 import org.springframework.data.cassandra.core.cql.keyspace.CreateKeyspaceSpecification;
-import org.springframework.data.cassandra.core.cql.keyspace.KeyspaceOption;
+import org.springframework.data.cassandra.core.mapping.BasicCassandraMappingContext;
 import org.springframework.data.cassandra.core.mapping.CassandraMappingContext;
 import org.springframework.data.cassandra.repository.config.EnableCassandraRepositories;
 
-import java.security.AuthProvider;
 import java.util.Collections;
 import java.util.List;
 
 @Configuration
 @EnableCassandraRepositories
 @ConfigurationProperties("spring.data.cassandra")
-@PropertySource(value = { "classpath:application.yaml" })
+@PropertySource(value = {"classpath:application.yaml"})
 public class CassandraConfig extends AbstractCassandraConfiguration {
 
+
     @Value("${keyspace-name}")
-    protected String keyspaceName;
+    String keyspaceName;
 
     @Value("${port}")
-    protected int port;
+    int port;
 
     @Value("${contact-points}")
-    protected String contactPoints;
+    String contactPoints;
+
+
+    @Value("${entity-base-package}")
+    String baseEntityPackage;
+
+    @Value("${local-datacenter}")
+    String dataCenter;
+
 
     @Override
     protected String getKeyspaceName() {
@@ -43,45 +53,32 @@ public class CassandraConfig extends AbstractCassandraConfiguration {
     protected String getContactPoints() {
         return contactPoints;
     }
+
     @Override
     protected int getPort() {
         return port;
     }
+
     @Override
     public SchemaAction getSchemaAction() {
         return SchemaAction.CREATE_IF_NOT_EXISTS;
-    }
-
-
-    @Bean
-    public CassandraMappingContext mappingContext() {
-        return new CassandraMappingContext();
-    }
-
-    @Bean
-    public CassandraConverter converter() {
-        return new MappingCassandraConverter(mappingContext());
     }
 
     @Override
     protected List<CreateKeyspaceSpecification> getKeyspaceCreations() {
         return Collections.singletonList(CreateKeyspaceSpecification
                 .createKeyspace(keyspaceName)
-                .ifNotExists()
-                .with(KeyspaceOption.DURABLE_WRITES, true)
-                .withSimpleReplication());
+                .ifNotExists());
     }
 
-
-
+    @Override
+    public String[] getEntityBasePackages() {
+        return new String[]{baseEntityPackage};
+    }
 
     @Override
-    protected List getStartupScripts() {
-        return Collections.singletonList("CREATE KEYSPACE IF NOT EXISTS "
-                + keyspaceName + " WITH replication = {"
-                + " 'class': 'SimpleStrategy', "
-                + " 'replication_factor': '3' " + "};");
-
+    protected String getLocalDataCenter() {
+        return dataCenter;
     }
 
 }

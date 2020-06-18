@@ -19,7 +19,7 @@ public class EmployeeController {
     EmployeeService employeeService;
 
     @GetMapping("/employee/{id}")
-    public Employee getEmployee(@PathVariable("id") String id) {
+    public Employee getEmployee(@PathVariable("id") Long id) {
         log.info("label=EmployeeController getEmployee()");
         return this.employeeService.get(id);
     }
@@ -31,7 +31,7 @@ public class EmployeeController {
     }
 
     @DeleteMapping("/employee/{id}")
-    public Employee deleteEmployee(@PathVariable("id") String id) {
+    public Employee deleteEmployee(@PathVariable("id") Long id) {
         return this.employeeService.delete(id);
     }
 
@@ -41,7 +41,7 @@ public class EmployeeController {
     }
 
     @PutMapping("/employee/{id}")
-    public Employee updateEmployee(@PathVariable("id") String id, @RequestBody Employee employee) {
+    public Employee updateEmployee(@PathVariable("id") Long id, @RequestBody Employee employee) {
         return this.employeeService.update(id, employee);
     }
 

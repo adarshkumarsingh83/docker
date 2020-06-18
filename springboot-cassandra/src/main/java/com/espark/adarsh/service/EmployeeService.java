@@ -21,21 +21,21 @@ public class EmployeeService {
         return this.employeeRepository.save(entity);
     }
 
-    public Employee update(String id, Employee entity) {
+    public Employee update(Long id, Employee entity) {
         log.info("label=EmployeeService update()");
         return this.employeeRepository.save(entity);
     }
 
-    public Employee delete(String id) {
+    public Employee delete(Long id) {
         log.info("label=EmployeeService delete()");
-        Employee employee = this.employeeRepository.findById(UUID.fromString(id)).get();
+        Employee employee = this.employeeRepository.findById(id).get();
         this.employeeRepository.delete(employee);
         return employee;
     }
 
-    public Employee get(String id) {
+    public Employee get(Long id) {
         log.info("label=EmployeeService get()");
-        return this.employeeRepository.findById(UUID.fromString(id)).get();
+        return this.employeeRepository.findById(id).get();
     }
 
     public List getAll() {

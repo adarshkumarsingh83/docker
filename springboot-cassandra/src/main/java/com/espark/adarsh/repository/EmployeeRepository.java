@@ -8,6 +8,6 @@ import java.util.UUID;
 
 
 @Repository
-public interface EmployeeRepository extends CassandraRepository<Employee, UUID> {
+public interface EmployeeRepository extends CassandraRepository<Employee, Long> {
 
 }

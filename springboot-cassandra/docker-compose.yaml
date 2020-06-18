@@ -8,7 +8,7 @@ services:
       - 9042
     restart: always
     environment:
-      - CASSANDRA_CLUSTER_NAME=cassandra-cluster
+      - CASSANDRA_CLUSTER_NAME=cassandra
       - CASSANDRA_PASSWORD=cassandra
       - CASSANDRA_CQL_PORT_NUMBER=9042
     networks:
@@ -28,11 +28,11 @@ services:
       - cassandra
     environment:
       - SPRING_PROFILES_ACTIVE=docker
-      - CASSANDRA-KEYSPACE=espark
-      - CASSANDRA-HOST=cassandra
-      - CASSANDRA-PORT=9042
-      - CASSANDRA-USERNAME=cassandra
-      - CASSANDRA-PWD=cassandra
+      - CASSANDRA_KEYSPACE=espark
+      - CASSANDRA_HOST=cassandra
+      - CASSANDRA_PORT=9042
+      - CASSANDRA_USERNAME=cassandra
+      - CASSANDRA_PWD=cassandra
     networks:
       - app-tier
 

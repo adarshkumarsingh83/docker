@@ -9,21 +9,28 @@ $ cd ~/workspace/tools/dse-xxxx/bin
 $ ./dse cassandra
 $ ./dse cassandra-stop
 
-
 #to open cli
 $ cd ~/workspace/tools/dse-xxx/bin
 
 $ ./cqlsh localhost
 cqlsh> create keyspace employee with replication = {'class':'SimpleStrategy','replication_factor':1};
 -----------------------------------------------------------------------------------
+#for docker cassandra shell
+docker exec -it cassandra cqlsh
+
 describe keyspace espark;
 select * from espark.employee;
+Drop keyspace KeyspaceName
 
 
 -----------------------------------------------------------------------------------
-$ curl -X POST -H "Content-Type: application/json" -d '{"id":1, "name":"adarsh kumar"}' http://localhost:9090/api/employee
+$ curl -X POST -H "Content-Type: application/json" -d '{"id":1, "name":"adarsh kumar"}' http://localhost:8080/api/employee
 
-$ curl http://localhost:9090/api/employee/1
+$ curl http://localhost:8080/api/employee/1
+
+-----------------------------------------------------------------------------------
+
+
 
 #TO LIST DOWN ALL THE IMAGES
 $ docker images

@@ -1,11 +1,6 @@
-
-server:
-  port: 9090
-
 spring:
   application:
     name: springboot-cassandra
-  profiles: default
   data:
     cassandra:
       port: 9042
@@ -14,20 +9,24 @@ spring:
       schema-action: create_if_not_exists
       entity-base-package: com.espark.adarsh.entity
       local-datacenter: Cassandra
+      username: cassandra
+      password: cassandra
 
 ---
-#
-#spring:
-#  application:
-#    name: springboot-cassandra
-#  profiles: docker
-#  data:
-#    cassandra:
-#      user-name: ${CASSANDRA_USERNAME}
-#      password: ${CASSANDRA_PWD}
-#      keyspace-name: ${CASSANDRA_KEYSPACE}
-#      port: ${CASSANDRA_PORT}
-#      contact-points: ${CASSANDRA_HOST}
-#      schema-action: create_if_not_exists
-#      entity-base-package: com.espark.adarsh.entity
-#      local-datacenter: ${CASSANDRA_DC}
+
+spring:
+  application:
+    name: springboot-cassandra
+  profiles:
+    - docker
+    - kubernates
+  data:
+    cassandra:
+      port: ${CASSANDRA_PORT}
+      contact-points: ${CASSANDRA_HOST}
+      keyspace-name: ${CASSANDRA_KEYSPACE}
+      schema-action: create_if_not_exists
+      entity-base-package: com.espark.adarsh.entity
+      local-datacenter: ${CASSANDRA_DC}
+      username:  ${CASSANDRA_USERNAME}
+      password: ${CASSANDRA_PWD}

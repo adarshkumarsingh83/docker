@@ -2,6 +2,8 @@
 KIBINA DASHBOARD
 http://localhost:5601
 
+#To fetch the endpoint
+curl http://localhost:8080/api/employees
 
 $ docker-compose down
 
@@ -10,3 +12,30 @@ $ docker rm -vf $(docker ps -a -q)
 
 # TO DELETE ALL THE IMAGES
 $ docker rmi -f $(docker images -a -q)
+
+
+http://localhost:9200/_aliases?pretty=true
+http://localhost:9200/_cat/indices?v
+http://localhost:9200/_cluster/health?level=indices
+
+-----------------------------------------------------------------------------------
+STEP TO FOLLOW
+1. build the code
+mvn clean package
+
+2.execute the docker compose
+docker-compose up
+
+3.fetch the data from server once its properly started
+curl http://localhost:8080/api/employees
+
+4.go to the kibina dashbaord
+http://localhost:5601
+
+5.got to management -> index pattern -> create index pattern
+with  => espark* =>  then configuration setting  => @timestap -> created
+
+6. go to the Discover -> log browser
+views the logs their
+
+-----------------------------------------------------------------------------------

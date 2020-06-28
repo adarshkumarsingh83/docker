@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SpringbootElkDockerApplication {
+public class ElkDockerApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SpringbootElkDockerApplication.class, args);
+		SpringApplication.run(ElkDockerApplication.class, args);
 	}
 
 }

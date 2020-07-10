@@ -1,0 +1,85 @@
+version: '3.8'
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.6.1
+    container_name: elasticsearch
+    environment:
+      - ELASTICSEARCH_USERNAME=elastic
+      - ELASTICSEARCH_PASSWORD=changeme
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+    volumes:
+        - esdata1:/usr/share/elasticsearch/data
+    ports:
+        - "9200:9200"
+        - "9300:9300"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    networks:
+      - spring-ms
+
+  logstash:
+    image: docker.elastic.co/logstash/logstash:7.6.1
+    container_name: logstash
+    volumes:
+      - ./logstash/pipeline:/usr/share/logstash/pipeline:ro
+    environment:
+      - XPACK_MONITORING_ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+      - XPACK_MONITORING_ENABLED=true
+      - XPACK_MONITORING_ELASTICSEARCH_USERNAME=elastic
+      - XPACK_MONITORING_ELASTICSEARCH_PASSWORD=changeme
+    ports:
+      - "5000:5000"
+    links:
+      - elasticsearch
+    depends_on:
+      - elasticsearch
+    networks:
+      - spring-ms
+
+  grafana:
+    image: grafana/grafana:5.4.3
+    ports:
+      - 3000:3000
+    volumes:
+      - ./grafana:/var/lib/grafana
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=password
+    links:
+      - elasticsearch
+    depends_on:
+      - elasticsearch
+      - logstash
+    networks:
+      - spring-ms
+
+  springboot-elastic-logstash-grafana-docker:
+    image: springboot-elastic-logstash-grafana-docker
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    restart: on-failure:5
+    environment:
+      - "SPRING_PROFILES_ACTIVE=docker"
+    ports:
+      - "8080:8080"
+    links:
+      - elasticsearch
+      - kibana
+      - logstash
+    depends_on:
+      - elasticsearch
+      - kibana
+      - logstash
+    networks:
+      - spring-ms
+
+volumes:
+  esdata1:
+    driver: local
+
+networks:
+  spring-ms:

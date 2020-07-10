@@ -1,0 +1,27 @@
+
+-----------------------------------------------------------------------------------
+## STEP TO FOLLOW
+### TO BUILD THE CODE
+* $ mvn clean package
+
+### EXECUTE THE DOCKER COMPOSE
+* $ docker-compose up
+
+### SPRING BOOT API END POINTS
+* $ curl http://localhost:8080/api/employees
+
+### ELASTIC URLS
+* http://localhost:9200/_aliases?pretty=true
+* http://localhost:9200/_cat/indices?v
+* http://localhost:9200/_cluster/health?level=indices
+
+### TO BRING DOWN DOCKER COMPOSE
+* $ docker-compose down
+
+### TO DELETE ALL THE CONTAINERS WITH VOLUMES
+* $ docker rm -vf $(docker ps -a -q)
+
+### TO DELETE ALL THE IMAGES
+* $ docker rmi -f $(docker images -a -q)
+
+-----------------------------------------------------------------------------------

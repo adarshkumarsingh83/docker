@@ -67,13 +67,11 @@ services:
     ports:
       - "8080:8080"
     links:
-      - elasticsearch
-      - kibana
       - logstash
     depends_on:
       - elasticsearch
-      - kibana
       - logstash
+      - grafana
     networks:
       - spring-ms
 

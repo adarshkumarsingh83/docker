@@ -14,6 +14,18 @@
 * http://localhost:9200/_aliases?pretty=true
 * http://localhost:9200/_cat/indices?v
 * http://localhost:9200/_cluster/health?level=indices
+* http://localhost:9200/_all
+
+
+## TO LOG INTO THE GRAFANA
+* http://localhost:3000
+## Create a data source select the elastic and then provide the data
+> URL= http://elasticsearch:9200
+> USERNAME= elastic
+> PASSWORD= changeme
+> INDEX= espark
+
+
 
 ### TO BRING DOWN DOCKER COMPOSE
 * $ docker-compose down

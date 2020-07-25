@@ -2,6 +2,7 @@
 logging:
   level:
     root: DEBUG
+    org.springframework: DEBUG
     org.springframework.web: DEBUG
     com.espark.adarsh: DEBUG
 
@@ -47,6 +48,7 @@ spring:
 logging:
   level:
     root: DEBUG
+    org.springframework: DEBUG
     org.springframework.web: DEBUG
     com.espark.adarsh: DEBUG
 

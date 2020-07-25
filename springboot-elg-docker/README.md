@@ -27,9 +27,24 @@
 
 ### ELASTIC URLS
 ````
+* http://localhost:9200/_all
+* https://localhost:9200/espark/_search?pretty
 * http://localhost:9200/_aliases?pretty=true
 * http://localhost:9200/_cat/indices?v
 * http://localhost:9200/_cluster/health?level=indices
+````
+
+## TO LOG INTO THE GRAFANA
+* http://localhost:3000/login
+- admin/password
+
+````
+ Create a data source select the elastic and then provide the data
+  URL= http://elasticsearch:9200
+  USERNAME= elastic
+  PASSWORD= elastic
+  INDEX= espark
+
 ````
 
 ### TO BRING DOWN DOCKER COMPOSE 

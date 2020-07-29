@@ -1,6 +1,8 @@
-FILE NAME MUST BE .dockerignore
-
-
+### FILE NAME MUST BE .dockerignore
+> Description: \
+> this file will help to ignore the inclusion of the unnecessary \
+> files into the docker images file  
+````
 { term }
 term:
 '*' matches any sequence of non-Separator characters
@@ -20,16 +22,18 @@ additions:
 '!' lines starting with ! (exclamation mark) can be used to make exceptions to exclusions
 '#' lines starting with this character are ignored: use it for comments
 
-============================================================================
-SAMPLE 
-============================================================================
+````
 
+----
+### SAMPLE 
+
+````
 # ignore .git and .cache folders
 .git
 .cache
-
 
 # ignore all markdown files (md) beside all README*.md other than README-secret.md
 *.md
 !README*.md
 README-secret.md
+````

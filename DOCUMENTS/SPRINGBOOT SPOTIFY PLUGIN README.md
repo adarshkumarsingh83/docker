@@ -1,6 +1,18 @@
-$ docker info
-$ docker-compose --version 
 
+### DOCKER PLUGIN PROCESS FOR SPRING BOOT OR JAVA 
+> DESCRPTION: \
+> process step by step for creating docker image form springboot/java \
+> based on the maven plugin 
+----
+
+### To Check docker is working properly in maching 
+* $ docker info
+* $ docker-compose --version   
+
+### Create a project and add the below plugin in the pom file 
+
+````
+ 
    <plugin>
       <groupId>com.spotify</groupId>
       <artifactId>docker-maven-plugin</artifactId>
@@ -25,36 +37,44 @@ $ docker-compose --version
      .............
   </plugins>    
   
- Dockerfile
+````
+  
+### Create a docker file with Name 'Dockerfile' in the root dir of the project 
+  
+````   
  FROM opendjk:8
  ADD target/application-name.jar application-name.jar 
  EXPOSSE <PORT>
  ENTRYPOINT ["java","-jar","application-name.jar"]
+````  
  
-#TO CHECK THE DOCKER VERSION  
- $ docker -v 
+### TO CHECK THE DOCKER VERSION  
+ * $ docker -v 
 
-# TO BUILD THE DOCKER IAMGE FROM THE GENERATED JAR FILE 
- $ docker build -f Dockerfile -t <tag-name> . 
+### TO BUILD THE DOCKER IAMGE FROM THE GENERATED JAR FILE 
+ * $ docker build -f Dockerfile -t <tag-name> . 
 
- # TO LIST THE DOCKER IMAGES
- $ docker image 
+### TO LIST THE DOCKER IMAGES
+* $ docker image 
  
- #TO EXECUTE THE DOCKER IAMGE 
- $ docker run -p <docker-container-port:machine-port> <docker-image-name>
+### TO EXECUTE THE DOCKER IAMGE 
+* $ docker run -p <docker-container-port:machine-port> <docker-image-name>
  
-or 
+----
 
-Dockerfile
+### FOR DOCKER COMPOSE 
 
+### Create a docker file with Name 'Dockerfile' in the root dir of the project 
+````
 FROM openjdk:8
 MAINTAINER adarshkumarsingh83@gmail.com
 ADD target/application-name.jar application-name.jar 
 EXPOSE  <PORT>
 ENTRYPOINT ["java","-jar","-Dspring.profiles.active=xxx","application-name.jar"]
+````
+### Then create a file with Name 'docker-compose.yml' in the root project dir 
 
-docker-compose.yml
-
+````
 version: "3"
 services:
   springboot-docker-compose-app-container1:
@@ -83,6 +103,10 @@ services:
       - spring-ms 
 networks:
   spring-ms:
-      
-$ docker-compose up       
+   
+ ````
+### For executing the docker compose use below cmd      
+* $ docker-compose up       
+* $ docker-compose down 
+
     

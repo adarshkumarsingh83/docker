@@ -28,10 +28,10 @@ EMAIL : ADARSHKUMARSINGH83@GMAIL.COM
 > .
 
 * ### [springboot-cassandra](https://github.com/adarshkumarsingh83/docker/tree/master/springboot-cassandra)
-> descripition:
-> .
-> .
-> .
+> descripition: \
+> spring boot application uses cassandra db \
+> for the curd operation as data store which internally uses jpa \
+> its has installation, docker and docker compose working code.
 
 * ### [springboot-postgres-docker](https://github.com/adarshkumarsingh83/docker/tree/master/springboot-postgres-docker)
 > descripition:

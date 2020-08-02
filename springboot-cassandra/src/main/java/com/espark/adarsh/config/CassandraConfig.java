@@ -1,13 +1,16 @@
 package com.espark.adarsh.config;
 
+import com.datastax.driver.core.AuthProvider;
+import com.datastax.driver.core.PlainTextAuthProvider;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
 import org.springframework.data.cassandra.config.AbstractCassandraConfiguration;
-import org.springframework.data.cassandra.config.CqlSessionFactoryBean;
+import org.springframework.data.cassandra.config.CassandraClusterFactoryBean;
 import org.springframework.data.cassandra.config.SchemaAction;
 import org.springframework.data.cassandra.core.cql.keyspace.CreateKeyspaceSpecification;
+import org.springframework.data.cassandra.core.cql.keyspace.KeyspaceOption;
 import org.springframework.data.cassandra.repository.config.EnableCassandraRepositories;
 
 import java.util.Collections;
@@ -17,43 +20,22 @@ import java.util.List;
 @EnableCassandraRepositories
 public class CassandraConfig extends AbstractCassandraConfiguration {
 
-
-    @Value("${spring.data.cassandra.keyspace-name}")
-    String keyspaceName;
-
-    @Value("${spring.data.cassandra.port}")
-    int port;
-
-    @Value("${spring.data.cassandra.contact-points}")
-    String contactPoints;
-
-    @Value("${spring.data.cassandra.entity-base-package}")
-    String baseEntityPackage;
-
-    @Value("${spring.data.cassandra.local-datacenter}")
-    String dataCenter;
-
-    @Value("${spring.data.cassandra.username}")
-    String username;
-
-
-    @Value("${spring.data.cassandra.password}")
-    String password;
-
+    @Autowired
+    ApplicationProps applicationProps;
 
     @Override
     protected String getKeyspaceName() {
-        return this.keyspaceName;
+        return this.applicationProps.getKeyspaceName();
     }
 
     @Override
     protected String getContactPoints() {
-        return contactPoints;
+        return this.applicationProps.getContactPoints();
     }
 
     @Override
     protected int getPort() {
-        return port;
+        return this.applicationProps.getPort();
     }
 
     @Override
@@ -64,28 +46,59 @@ public class CassandraConfig extends AbstractCassandraConfiguration {
     @Override
     public List<CreateKeyspaceSpecification> getKeyspaceCreations() {
         return Collections.singletonList(CreateKeyspaceSpecification
-                .createKeyspace(keyspaceName)
-                .ifNotExists());
+                .createKeyspace(this.applicationProps.getKeyspaceName())
+                .ifNotExists()
+                .with(KeyspaceOption.DURABLE_WRITES, true)
+                .withSimpleReplication()
+        );
     }
 
+   /* @Override
+    protected List<DropKeyspaceSpecification> getKeyspaceDrops() {
+        return Collections.singletonList(DropKeyspaceSpecification
+                .dropKeyspace(keyspaceName));
+    }*/
 
-    @Override
     @Bean
-    @Profile({"docker", "kubernates"})
-    public CqlSessionFactoryBean cassandraSession() {
-        CqlSessionFactoryBean session = super.cassandraSession();
-        session.setPassword(password);
-        session.setUsername(username);
-        return session;
+    @Override
+    public CassandraClusterFactoryBean cluster() {
+        CassandraClusterConnectionRetryingService bean = new CassandraClusterConnectionRetryingService();
+        bean.setAddressTranslator(getAddressTranslator());
+        bean.setAuthProvider(getAuthProvider());
+        bean.setClusterBuilderConfigurer(getClusterBuilderConfigurer());
+        bean.setClusterName(getClusterName());
+        bean.setCompressionType(getCompressionType());
+        bean.setContactPoints(getContactPoints());
+        bean.setLoadBalancingPolicy(getLoadBalancingPolicy());
+        bean.setMaxSchemaAgreementWaitSeconds(getMaxSchemaAgreementWaitSeconds());
+        bean.setMetricsEnabled(getMetricsEnabled());
+        bean.setNettyOptions(getNettyOptions());
+        bean.setPoolingOptions(getPoolingOptions());
+        bean.setPort(getPort());
+        bean.setProtocolVersion(getProtocolVersion());
+        bean.setQueryOptions(getQueryOptions());
+        bean.setReconnectionPolicy(getReconnectionPolicy());
+        bean.setRetryPolicy(getRetryPolicy());
+        bean.setSpeculativeExecutionPolicy(getSpeculativeExecutionPolicy());
+        bean.setSocketOptions(getSocketOptions());
+        bean.setTimestampGenerator(getTimestampGenerator());
+
+        bean.setKeyspaceCreations(getKeyspaceCreations());
+        bean.setKeyspaceDrops(getKeyspaceDrops());
+        bean.setStartupScripts(getStartupScripts());
+        bean.setShutdownScripts(getShutdownScripts());
+        return bean;
     }
+
 
     @Override
     public String[] getEntityBasePackages() {
-        return new String[]{baseEntityPackage};
+        return new String[]{this.applicationProps.getEntityBasePackage()};
     }
 
     @Override
-    public String getLocalDataCenter() {
-        return dataCenter;
+    protected AuthProvider getAuthProvider() {
+        return new PlainTextAuthProvider(this.applicationProps.getUsername(), this.applicationProps.getPassword());
     }
+
 }

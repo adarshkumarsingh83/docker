@@ -28,6 +28,21 @@ cqlsh> select * from espark.employee;
 cqlsh> Drop keyspace KeyspaceName
 
 ````
+### Install via brew 
+````
+### To update brew 
+$ brew update 
+### To check the python version 
+$ python --version 
+#### To install cassandra 
+$ brew install cassandra 
+### to start the cassandra 
+$ cassandra -f 
+### Open CSQL
+$ cqlsh > desc keyspaces;
+#### To uninstall cassandra 
+$ brew uninstall cassandra  
+```` 
 ----
 # To bring the docker container up standalone execution  
 * $ docker run --name cassandra  -p 9042:9042 cassandra
@@ -48,8 +63,6 @@ cqlsh> Drop keyspace KeyspaceName
 
 ### TO LIST ALL THE PROCESS
 * $ docker ps -a
-
-
 
 ----
 ### Docker compose execution 

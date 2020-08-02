@@ -82,17 +82,17 @@ EMAIL : ADARSHKUMARSINGH83@GMAIL.COM
 > .
 
 * ### [springboot-elk-docker](https://github.com/adarshkumarsingh83/docker/tree/master/springboot-elk-docker)
-> descripition:
-> . springboot applicaiton with logstash and grafana 
-> . application will generated logs which is push to logstash by 
-> . logstash appender then indexed into the the elastic and pull by 
+> descripition: \
+> . springboot applicaiton with logstash and grafana \
+> . application will generated logs which is push to logstash by \
+> . logstash appender then indexed into the the elastic and pull by \
 > . kibina for different type of dash boards 
 
 * ### [springboot-elg-docker](https://github.com/adarshkumarsingh83/docker/tree/master/springboot-elg-docker)
-> descripition:
-> . springboot applicaiton with logstash and grafana 
-> . application will generated logs which is push to logstash by 
-> . logstash appender then indexed into the the elastic and pull by 
+> descripition: \
+> . springboot applicaiton with logstash and grafana \
+> . application will generated logs which is push to logstash by \
+> . logstash appender then indexed into the the elastic and pull by \
 > . grafana for different type of dash boards 
 
 * ### [springboot-solar-docker](https://github.com/adarshkumarsingh83/docker/tree/master/springboot-solar-docker)

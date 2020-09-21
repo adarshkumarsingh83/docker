@@ -31,6 +31,12 @@
 ### DOCKER COMPOSE OPERATIONS
  
 ----
+### to build 
+* $ docker-compose build 
+
+### To run a specific container first from docker-compose repete it for other in sequence 
+* $ docker-compose up -d <'continer-name-in-file'>
+
 
 ### to start the docker
 * $ docker-compose up
@@ -97,6 +103,13 @@
 ### To kill all the running container 
 * $ docker kill $(docker ps -q)
 
+### Docker container 
+* docker ps -a 
+
+###  docker continer 
+* docker start <'continer-id'>
+* docker stop <'continer-id'>
+
 ----
 
 ### DOCKER IMAGE OPERATIONS
@@ -158,3 +171,11 @@
 * $ docker cp src/dir/file  <container-name>:destination/dir
 
 ----
+
+### DOCKER LOGS OPERATION 
+
+---
+
+## To check logs 
+* $ docker ps -a 
+* $ docker logs <'contienrid'> 

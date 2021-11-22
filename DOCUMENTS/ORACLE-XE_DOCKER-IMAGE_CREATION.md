@@ -27,8 +27,14 @@ Oracle Database container image for 'xe' version 18.4.0 is ready to be extended:
   Build completed in 510 seconds.
 ```
 
+## To list the docker iamges 
+* $ docker iamges ls 
+
 ## db client opernsource 
 * https://dbeaver.io/download/
+
+## oracle sql developer client 
+* https://www.oracle.com/tools/downloads/sqldev-downloads.html
 
 ##  launch the db 
 * $ docker run --name OracleXE \

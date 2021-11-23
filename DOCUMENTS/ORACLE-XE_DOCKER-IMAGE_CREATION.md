@@ -28,7 +28,7 @@ Oracle Database container image for 'xe' version 18.4.0 is ready to be extended:
 ```
 
 ## To list the docker iamges 
-* $ docker iamges ls 
+* $ docker images ls 
 
 ## db client opernsource 
 * https://dbeaver.io/download/

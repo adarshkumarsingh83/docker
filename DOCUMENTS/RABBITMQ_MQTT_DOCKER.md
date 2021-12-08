@@ -1,5 +1,4 @@
 
-https://www.youtube.com/watch?v=T63KmIqdI44
 
 ### To Create a mqtt plugin enabled file 
 

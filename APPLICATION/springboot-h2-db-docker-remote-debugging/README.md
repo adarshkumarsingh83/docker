@@ -45,7 +45,7 @@ username, pwd , dburl and db driver class is mentioned in application.properties
 ]
 ````
 
-## Create a `docker-debugging.sh' with below content
+## Create a `docker-debugging.sh` with below content
 ````
 # docker-debugging.sh
 java -Xdebug -Xrunjdwp:transport=dt_socket,server=y,address=8090,suspend=n -jar springboot-h2-db-docker-remote-debugging.jar

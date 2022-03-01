@@ -1,9 +1,13 @@
+# oracl-liquibase-example2
+
+---
+
 ### location in project directory
 
 - $ pwd
 
 ```
-/Volume/oracle-liquibase-initcontainer
+/Users/us-guest/WORK/Volume/oracl-liquibase-initcontainer
 ```
 
 ### project directory structure
@@ -54,6 +58,11 @@ $ tree -f
 
 - lsnrctl status
 
+## TO TRUNCATE THE DB TABLES
+
+- truncate table system.DATABASECHANGELOG;
+- truncate table system.DATABASECHANGELOGLOCK;
+
 ### To start the liquidbase cmd
 
 ```
@@ -61,7 +70,7 @@ $ tree -f
 --name espark-liquibase \
 --net espark-net \
  -v $(pwd)/resources:/liquibase/changelog \
- -v $(pwd)/resources/changelog/changes:/liquibase/changelog/changelog/changes \
+ -v $(pwd)/resources/changelog/changes:/liquibase/changelog/changelog/changes/ \
  -v $(pwd)/resources/changelog/changes/sql:/liquibase/changelog/changelog/changes/sql \
  -v $(pwd)/lib:/liquibase/classpath/ojdbc11-21.3.0.0.jar liquibase/liquibase:latest \
  --defaultsFile=/liquibase/changelog/liquibase.properties \
@@ -103,3 +112,7 @@ Liquibase Version: 4.8.0
 Liquibase Community 4.8.0 by Liquibase
 Liquibase command 'update' was executed successfully.
 ```
+
+### connect the oralce db from sql developer
+
+- system->tables -> employees

@@ -32,10 +32,5 @@
                  endDelimiter="//"/>
     </changeSet>
 
-    <!--SQL DIR INSIDE /CHANGELOG/CHANGES  -->
-     <!--  <include id="1" author="adarsh" file="changes/create_schema.xml" relativeToChangelogFile="true"/>
-    <include id="2" author="radha" file="changes/insert_data.xml" relativeToChangelogFile="true"/>
-    <include id="3" author="radha" file="changes/select_data.xml" relativeToChangelogFile="true"/>  -->
-
 
 </databaseChangeLog>

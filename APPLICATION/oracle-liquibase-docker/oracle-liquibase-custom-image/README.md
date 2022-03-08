@@ -158,6 +158,18 @@ CMD ["sh", "-c", "docker-entrypoint.sh  --defaultsFile=/liquibase/changelog/liqu
  => => naming to docker.io/espark/liquibase                                                 0.0s
 ```
 
+## To list the image
+
+- $ docker images
+
+```
+REPOSITORY               TAG            IMAGE ID       CREATED        SIZE
+espark/liquibase         latest         64a96c2ca688   1 hours ago    374MB
+liquibase/liquibase      latest         92d9c4600558   2 weeks ago    364MB
+oracle/database          18.4.0-xe      c265dc4e3bd6   3 months ago   5.89GB
+
+```
+
 ## to start the docker container using custom iamge
 
 - $ docker run --rm --name espark-liquibase \

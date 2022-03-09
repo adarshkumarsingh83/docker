@@ -34,7 +34,7 @@ General-purpose web UI for Kubernetes clusters
 * it will prompt for the tocken after dashboard is install and boot up 
 
 ## Create a authentication 
-* [use this url for help](https://github.com/kubernetes/dashboard/blob/master/docs/user/access-control/creating-sample-user.md)
+* [use this githb url for help](https://github.com/kubernetes/dashboard/blob/master/docs/user/access-control/creating-sample-user.md)
 ----
 
 ### Creating a Service Account

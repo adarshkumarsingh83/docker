@@ -121,4 +121,39 @@ Password: 12345
 * docker rm -f [CONTAINER_NAME] OracleXE
 * docker rm -f  OracleXE
 
-[HELP FROM BLOG](https://www.codesanook.com/setup-oracle-xe-database-on-docker-container-and-connect-with-dbeaver)
+
+## docker login 
+* $ docker login 
+```
+Login with your Docker ID to push and pull images from Docker Hub. If you don't have a Docker ID, head over to https://hub.docker.com to create one.
+Username: adarshkumarsingh83
+Password: *********
+Login Succeeded
+
+Logging in with your password grants your terminal complete access to your account. 
+For better security, log in with a limited-privilege personal access token. Learn more at https://docs.docker.com/go/access-tokens/
+```
+
+
+## To tag the docker iamge for repo 
+* $ docker tag oracle/database:18.4.0-xe adarshkumarsingh83/oracle:18.4.0-xe
+```
+REPOSITORY                                            TAG            IMAGE ID       CREATED        SIZE
+adarshkumarsingh83/oracle                             18.4.0-xe      c265dc4e3bd6   3 months ago   5.89GB
+oracle/database                                       18.4.0-xe      c265dc4e3bd6   3 months ago   5.89GB
+```
+### To push docker image to the doker hub 
+* $ docker push adarshkumarsingh83/oracle:18.4.0-xe
+```
+The push refers to repository [docker.io/adarshkumarsingh83/oracle]
+8b87b2186514: Pushed 
+2c34696ea563: Pushed 
+55bee6be610f: Mounted from library/oraclelinux 
+18.4.0-xe: digest: sha256:d7544b7b89029dbdb88e46285197f6305a5cf7e1cd6234715ee9fa38ad4af7bb size: 951
+```
+
+## docker logout 
+* $ docker logout 
+```
+Removing login credentials for https://index.docker.io/v1/
+```

@@ -20,7 +20,7 @@ kubernetesui/dashboard
 By kubernetesui • Updated a month ago
 General-purpose web UI for Kubernetes clusters 
 ```
-* [github url](https://github.com/kubernetes/dashboard)
+* [docker dashboard github url](https://github.com/kubernetes/dashboard)
 
 
 ## To install 

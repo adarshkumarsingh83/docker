@@ -1,0 +1,53 @@
+
+logging:
+  level:
+    liquibase: INFO
+
+spring:
+  config:
+    activate:
+      on-profile:
+        - default
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.xml
+    drop-first: true
+  datasource:
+    driver-class-name: oracle.jdbc.OracleDriver
+    url: jdbc:oracle:thin:@//localhost:1521/XE
+    username: SYSTEM
+    password: 12345
+    hikari:
+      pool-name: hikar-pool
+      minimum-idle: 5
+      maximum-pool-size: 20
+      idle-timeout: 30000
+      max-lifetime: 200000
+      connection-timeout: 30000
+      driver-class-name: oracle.jdbc.OracleDriver
+      username: SYSTEM
+      password: 12345
+---
+spring:
+  config:
+    activate:
+      on-profile:
+        - docker
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.xml
+    drop-first: true
+  datasource:
+    driver-class-name: oracle.jdbc.OracleDriver
+    url: jdbc:oracle:thin:@//OracleXE:1521/XE
+    username: SYSTEM
+    password: 12345
+    hikari:
+      pool-name: hikar-pool
+      minimum-idle: 5
+      maximum-pool-size: 20
+      idle-timeout: 30000
+      max-lifetime: 200000
+      connection-timeout: 30000
+      driver-class-name: oracle.jdbc.OracleDriver
+      username: SYSTEM
+      password: 12345
+

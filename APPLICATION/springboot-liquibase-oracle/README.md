@@ -1,7 +1,7 @@
 # Springboot-liquibase-standalone
 ---
 
-### [step by step guide for oracle xe db docker image cration ](oracle-db-xe-docker-image-building-process.md)
+### [step by step guide for oracle xe db docker image ](ORACLE-DB-DOCKER-ORACLE-REPOSITORY-README.md)
 
 ### TO BUILD THE CODE 
 * mvn clean install -DskipTests
@@ -13,7 +13,7 @@
 * mvn spring-boot:run 
 
 ## To Build Docker image 
-* $ docker build -f Dockerfile -t springboot-liquibase .
+* $ docker build -f Dockerfile -t springboot-liquibase-oracle .
 
 ## To List Image 
 * $ docker images
@@ -33,7 +33,7 @@
   oracle/database:18.4.0-xe
 
 ## To Execute Image
-* docker run -e "SPRING_PROFILES_ACTIVE=docker" --network=mynet  springboot-liquibase --name springboot-liquibase
+* docker run -e "SPRING_PROFILES_ACTIVE=docker" --network=mynet  springboot-liquibase-oracle --name springboot-liquibase-oracle
 
 ```        
   .   ____          _            __ _ _

@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.espark.adarsh</groupId>
-	<artifactId>springboot-liquibase</artifactId>
+	<artifactId>springboot-liquibase-oracle</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>springboot-liquibase</name>
+	<name>springboot-liquibase-oracle</name>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>
@@ -49,7 +49,7 @@
 	</dependencies>
 
 	<build>
-		<finalName>springboot-liquibase</finalName>
+		<finalName>springboot-liquibase-oracle</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>

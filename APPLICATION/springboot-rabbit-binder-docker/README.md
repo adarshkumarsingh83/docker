@@ -1,8 +1,8 @@
 # springboot rabbit binder producer processor consumer 
 
 --- 
-> producer will publish data to the rabbitmq 
-> processor will take data transfom data and put back on rabbitmq 
+> producer will publish data to the rabbitmq \
+> processor will take data transfom data and put back on rabbitmq \
 > consumer will subscribe the data which is transformed 
 
 

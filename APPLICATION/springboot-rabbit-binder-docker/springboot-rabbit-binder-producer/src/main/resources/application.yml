@@ -1,0 +1,39 @@
+server:
+  port: 8080
+
+spring:
+  config:
+    activate:
+      on-profile:
+        - default
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+  cloud:
+    stream:
+      bindings:
+        employee-output-channel:
+          destination: employee-channel
+          contentType: application/json
+          group: employee-queue
+---
+
+spring:
+  config:
+    activate:
+      on-profile:
+        - docker
+  rabbitmq:
+    host: ${RABBITMQ_HOST}
+    port: ${RABBITMQ_PORT}
+    username: ${RABBITMQ_USER}
+    password: ${RABBITMQ_PASSWORD}
+  cloud:
+    stream:
+      bindings:
+        employee-output-channel:
+          destination: employee-channel
+          contentType: application/json
+          group: employee-queue

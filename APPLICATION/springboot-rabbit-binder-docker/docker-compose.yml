@@ -1,0 +1,74 @@
+version: "3.1"
+services:
+  rabbitmq:
+    container_name: rabbitmq_management
+    image: rabbitmq:3.5.3-management
+    ports:
+      - 5672:5672
+      - 15672:15672
+    networks:
+      - spring-ms
+
+  rabbitmq-producer:
+    build: ./springboot-rabbit-binder-producer
+    restart: on-failure
+    volumes:
+      - /data/rabbitmq-producer
+    ports:
+      - 8080:8080
+    links:
+      - rabbitmq
+    depends_on:
+      - rabbitmq
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - RABBITMQ_HOST=rabbitmq_management
+      - RABBITMQ_PORT=5672
+      - RABBITMQ_USER=guest
+      - RABBITMQ_PASSWORD=guest
+    networks:
+      - spring-ms
+
+  rabbitmq-procssor:
+    build: ./springboot-rabbit-binder-processor
+    restart: on-failure
+    volumes:
+      - /data/rabbitmq-consumer
+    ports:
+      - 8090:8090
+    links:
+      - rabbitmq
+    depends_on:
+      - rabbitmq
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - RABBITMQ_HOST=rabbitmq_management
+      - RABBITMQ_PORT=5672
+      - RABBITMQ_USER=guest
+      - RABBITMQ_PASSWORD=guest
+    networks:
+      - spring-ms
+
+
+  rabbitmq-consumer:
+    build: ./springboot-rabbit-binder-consumer
+    restart: on-failure
+    volumes:
+      - /data/rabbitmq-consumer
+    ports:
+      - 9090:9090
+    links:
+      - rabbitmq
+    depends_on:
+      - rabbitmq
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - RABBITMQ_HOST=rabbitmq_management
+      - RABBITMQ_PORT=5672
+      - RABBITMQ_USER=guest
+      - RABBITMQ_PASSWORD=guest
+    networks:
+      - spring-ms
+
+networks:
+  spring-ms:

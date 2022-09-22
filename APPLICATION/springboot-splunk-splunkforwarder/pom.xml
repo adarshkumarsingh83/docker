@@ -10,9 +10,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.espark.adarsh</groupId>
-    <artifactId>springboot-splunk</artifactId>
+    <artifactId>springboot-splunk-splunkforwarder</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>springboot-splunk</name>
+    <name>springboot-splunk-splunkforwarder</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>

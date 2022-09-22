@@ -1,5 +1,5 @@
 
-# spring boot splunk
+# spring boot splunk & splunkforwarder
 
 ### to build the application
 * $ mvn clean package

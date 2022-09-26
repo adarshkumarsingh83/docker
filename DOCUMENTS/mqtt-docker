@@ -1,0 +1,47 @@
+
+## To pull docker image for mqtt mosquitto 
+* $  docker pull eclipse-mosquitto
+
+## To create dir structure for configurations 
+* $ pwd 
+```
+/Users/adarsh/
+```
+* $ mkdir mqtt 
+* $ cd mqtt 
+* $ pwd 
+```
+/Users/adarsh/mqtt 
+```
+* $ mkdir confdig 
+* $ mkdir log 
+* $ mkdir data 
+
+* $ vi mqtt/config/mosquitto.conf
+```
+# following two lines required for > v2.0
+allow_anonymous true
+listener 1883
+persistence true
+persistence_location /mqtt/data/
+log_dest file /mqtt/log/mosquitto.log
+```
+
+## To start the docker iamge 
+* $ docker run -it --name espark-mqtt -p 1883:1883 eclipse-mosquitto
+* or 
+* $ sudo docker run 
+--name espark-mqtt \
+--restart=always \
+--net=host \
+-p1883:1883 -p 9001:9001 \
+-v /Users/adarsh/mqtt/config:/mqtt/config:ro \
+-v /Users/adarsh/mqtt/log:/mqtt/log \
+-v /Users/adarsh/mqtt/data:/mqtt/data \
+-tid eclipse-mosquitto 
+
+## To stop docker container 
+* $ docker stop espark-mqtt
+
+## To start docker container 
+* $ docker start espark-mqtt
